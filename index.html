@@ -688,15 +688,20 @@
          ============================================================ */
       document.querySelectorAll(".card__shot").forEach(function (img) {
         const base = img.getAttribute("src");
+        const MAX = 12;          // максимум спроб
         let tries = 0;
+        function retry() {
+          if (tries >= MAX) return;
+          tries++;
+          // Зростаючий інтервал: 2s, 3s, 4s… — даємо сервісу час згенерувати кадр
+          setTimeout(function () { img.src = base + "&r=" + tries; }, 1600 + tries * 900);
+        }
         img.addEventListener("load", function () {
-          // mShots-заглушка «loading» дуже мала за розміром — вважаємо валідним лише повний кадр
-          if (img.naturalWidth > 320) { img.classList.add("loaded"); }
-          else if (tries < 6) { tries++; setTimeout(function () { img.src = base + "&r=" + tries; }, 1600); }
+          // Поки скрін не готовий, mShots віддає крихітну заглушку — приймаємо лише повний кадр
+          if (img.naturalWidth > 320) img.classList.add("loaded");
+          else retry();
         });
-        img.addEventListener("error", function () {
-          if (tries < 4) { tries++; setTimeout(function () { img.src = base + "&r=" + tries; }, 1600); }
-        });
+        img.addEventListener("error", retry);
       });
 
       /* ============================================================
