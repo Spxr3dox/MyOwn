@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Портфоліо веб-розробника — сучасні адаптивні сайти та веб-додатки у стилі iOS." />
+  <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+  <title>Євгеній — Full-Stack Developer</title>
+
+  <!-- ============================================================
+       СТИЛІ (усі вбудовані)
+       Дизайн у стилі iOS / Apple Human Interface Guidelines:
+       системні шрифти, «скляні» картки, великий радіус,
+       м'які тіні, blur-ефекти, плавні анімації.
+       ============================================================ -->
+  <style>
+    /* ---------- CSS Custom Properties: світла тема (за замовчуванням) ---------- */
+    :root {
+      /* Акцент */
+      --accent: #007AFF;
+      --accent-hover: #0069D9;
+      --accent-soft: rgba(0, 122, 255, 0.12);
+
+      /* Системні фони iOS */
+      --bg: #F2F2F7;                         /* фон сторінки */
+      --bg-gradient-1: rgba(0, 122, 255, 0.14);
+      --bg-gradient-2: rgba(88, 86, 214, 0.10);
+
+      /* Скляні картки */
+      --card-bg: rgba(255, 255, 255, 0.72);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --card-shadow-hover: 0 18px 50px rgba(0, 0, 0, 0.16);
+
+      /* Текст */
+      --text: #1C1C1E;
+      --text-secondary: #6E6E73;
+      --text-tertiary: #8E8E93;
+
+      /* Елементи керування */
+      --control-bg: rgba(120, 120, 128, 0.12);
+      --control-border: rgba(120, 120, 128, 0.20);
+      --separator: rgba(60, 60, 67, 0.14);
+
+      /* Навбар */
+      --nav-bg: rgba(242, 242, 247, 0.72);
+
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    /* ---------- Темна тема ---------- */
+    [data-theme="dark"] {
+      --accent: #0A84FF;
+      --accent-hover: #3A9BFF;
+      --accent-soft: rgba(10, 132, 255, 0.18);
+
+      --bg: #000000;
+      --bg-gradient-1: rgba(10, 132, 255, 0.22);
+      --bg-gradient-2: rgba(94, 92, 230, 0.16);
+
+      --card-bg: rgba(28, 28, 30, 0.68);
+      --card-border: rgba(255, 255, 255, 0.10);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      --card-shadow-hover: 0 18px 50px rgba(0, 0, 0, 0.7);
+
+      --text: #F5F5F7;
+      --text-secondary: #A1A1A6;
+      --text-tertiary: #8E8E93;
+
+      --control-bg: rgba(120, 120, 128, 0.24);
+      --control-border: rgba(255, 255, 255, 0.12);
+      --separator: rgba(84, 84, 88, 0.4);
+
+      --nav-bg: rgba(20, 20, 22, 0.72);
+    }
+
+    /* ---------- Reset / базові налаштування ---------- */
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                   "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      /* плавний перехід при зміні теми */
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    /* Декоративні кольорові «плями» на фоні (як на iOS) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(60% 55% at 15% 0%, var(--bg-gradient-1) 0%, transparent 60%),
+        radial-gradient(55% 50% at 100% 20%, var(--bg-gradient-2) 0%, transparent 55%);
+      transition: background 0.5s ease;
+      pointer-events: none;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Контейнер */
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ---------- Навбар / хедер-бар (fixed, «скло») ---------- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--separator);
+      transition: background 0.5s ease, border-color 0.5s ease;
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .navbar__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: -0.2px;
+    }
+    .navbar__brand svg { display: block; width: 34px; height: 34px; }
+
+    /* ---------- Кнопка перемикання теми ---------- */
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--control-border);
+      background: var(--control-bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .theme-toggle:hover { transform: scale(1.06); }
+    .theme-toggle:active { transform: scale(0.94); }
+    .theme-toggle svg {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    /* Логіка появи/зникнення іконок сонця та місяця */
+    .theme-toggle .icon-sun   { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+    .theme-toggle .icon-moon  { opacity: 1; transform: rotate(0deg) scale(1); }
+    [data-theme="dark"] .theme-toggle .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+    [data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.4); }
+
+    /* ---------- Секції ---------- */
+    section { padding: 64px 0; }
+    .section-head { margin-bottom: 34px; text-align: center; }
+    .section-head .eyebrow {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .section-head h2 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      margin-top: 6px;
+    }
+    .section-head p {
+      color: var(--text-secondary);
+      margin-top: 10px;
+      font-size: 17px;
+    }
+
+    /* ============================================================
+       HERO / Хедер-секція
+       ============================================================ */
+    .hero {
+      text-align: center;
+      padding-top: 72px;
+      padding-bottom: 48px;
+    }
+    .hero__logo {
+      width: 116px;
+      height: 116px;
+      margin: 0 auto 26px;
+      filter: drop-shadow(0 12px 30px rgba(0, 122, 255, 0.35));
+    }
+    .hero__logo svg { width: 100%; height: 100%; display: block; }
+    .hero h1 {
+      font-size: clamp(38px, 8vw, 64px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+    }
+    .hero .subtitle {
+      margin-top: 14px;
+      font-size: clamp(17px, 3.5vw, 21px);
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    /* «Значок» доступності */
+    .hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      box-shadow: var(--card-shadow);
+    }
+    .hero .badge .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #34C759;
+      box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.2);
+    }
+    .hero__actions {
+      margin-top: 34px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Кнопки ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 22px var(--accent-soft);
+    }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 12px 28px var(--accent-soft); }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+    .btn-secondary {
+      background: var(--control-bg);
+      color: var(--text);
+      border: 1px solid var(--control-border);
+    }
+    .btn-secondary:hover { transform: translateY(-2px); }
+    .btn-secondary:active { transform: translateY(0) scale(0.98); }
+
+    /* ============================================================
+       ПОРТФОЛІО (сітка карток-проектів)
+       ============================================================ */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: var(--card-shadow-hover);
+    }
+    /* «Прев'ю» проекту — стилізований градієнтний банер із монограмою */
+    .project-card__preview {
+      position: relative;
+      height: 168px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
+    .project-card__preview::after {
+      /* легкий блиск скла */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 45%);
+      pointer-events: none;
+    }
+    .project-card__mark {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      z-index: 1;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+    /* Індивідуальні градієнти прев'ю */
+    .grad-1 { background: linear-gradient(135deg, #FF5E62 0%, #FF2D55 100%); }
+    .grad-2 { background: linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%); }
+    .grad-3 { background: linear-gradient(135deg, #34C759 0%, #30B0C7 100%); }
+    .grad-4 { background: linear-gradient(135deg, #FF9F0A 0%, #FF375F 100%); }
+
+    .project-card__body {
+      padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .project-card__body h3 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .project-card__tag {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .project-card__body p {
+      margin-top: 12px;
+      color: var(--text-secondary);
+      font-size: 15px;
+      flex: 1;
+    }
+    .project-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      align-self: flex-start;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      transition: gap 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    }
+    .project-card__link:hover { gap: 10px; transform: translateX(2px); }
+    .project-card__link svg { width: 16px; height: 16px; }
+
+    /* ============================================================
+       КОНТАКТИ (соц-іконки)
+       ============================================================ */
+    .contacts {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-chip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-width: 220px;
+    }
+    .contact-chip:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+    .contact-chip__icon {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .contact-chip__icon svg { width: 26px; height: 26px; }
+    .contact-chip__icon.gh { background: linear-gradient(135deg, #333 0%, #111 100%); }
+    .contact-chip__icon.tg { background: linear-gradient(135deg, #37AEE2 0%, #1E96C8 100%); }
+    .contact-chip__icon.mail { background: linear-gradient(135deg, var(--accent) 0%, #5E5CE6 100%); }
+    .contact-chip__meta small { display: block; color: var(--text-tertiary); font-size: 12px; font-weight: 500; }
+    .contact-chip__meta span { font-weight: 600; font-size: 15px; letter-spacing: -0.2px; }
+
+    /* ============================================================
+       ФОРМА «Написати мені»
+       ============================================================ */
+    .form-wrap {
+      max-width: 660px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      padding: 32px;
+    }
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+    .field label .req { color: #FF3B30; }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 16px;               /* 16px — щоб iOS не зумив при фокусі */
+      color: var(--text);
+      background: var(--control-bg);
+      border: 1px solid var(--control-border);
+      border-radius: var(--radius-sm);
+      padding: 13px 15px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .input::placeholder, .textarea::placeholder { color: var(--text-tertiary); }
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+      background: var(--card-bg);
+    }
+    .textarea { resize: vertical; min-height: 120px; }
+
+    /* Кастомна стрілка для select */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: "";
+      position: absolute;
+      right: 16px; top: 50%;
+      width: 9px; height: 9px;
+      border-right: 2px solid var(--text-tertiary);
+      border-bottom: 2px solid var(--text-tertiary);
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
+    }
+    .select { padding-right: 40px; }
+
+    /* Поле бюджету з валютою */
+    .budget-wrap { position: relative; }
+    .budget-wrap .currency {
+      position: absolute;
+      right: 15px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      font-weight: 600;
+      font-size: 15px;
+      pointer-events: none;
+    }
+    .budget-wrap .input { padding-right: 54px; }
+
+    /* Повідомлення про помилку валідації */
+    .error-msg {
+      display: none;
+      color: #FF3B30;
+      font-size: 13px;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .field.invalid .error-msg { display: block; }
+    .field.invalid .input,
+    .field.invalid .select,
+    .field.invalid .textarea { border-color: #FF3B30; box-shadow: 0 0 0 4px rgba(255,59,48,0.14); }
+
+    .form-submit { width: 100%; margin-top: 8px; }
+
+    /* Банер успіху */
+    .success-banner {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(52, 199, 89, 0.14);
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      color: #248A3D;
+      font-weight: 600;
+      animation: fadeInUp 0.5s ease both;
+    }
+    [data-theme="dark"] .success-banner { color: #30D158; }
+    .success-banner.show { display: flex; }
+    .success-banner svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+    /* ============================================================
+       ФУТЕР
+       ============================================================ */
+    footer {
+      text-align: center;
+      padding: 44px 20px 60px;
+      border-top: 1px solid var(--separator);
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+    footer a { color: var(--accent); font-weight: 600; }
+    footer .footer-links {
+      display: flex; gap: 18px; justify-content: center; margin-top: 14px;
+    }
+    footer .footer-links a { color: var(--text-secondary); }
+    footer .footer-links a:hover { color: var(--accent); }
+
+    /* ============================================================
+       АНІМАЦІЇ появи (fade-in при завантаженні / скролі)
+       ============================================================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Поважаємо налаштування зменшеного руху */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ---------- Адаптив ---------- */
+    @media (max-width: 560px) {
+      section { padding: 48px 0; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .form-wrap { padding: 24px 20px; }
+      .contact-chip { min-width: 100%; }
+      .hero { padding-top: 48px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================================
+       НАВБАР
+       ============================================================ -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a href="#top" class="navbar__brand" aria-label="На початок сторінки">
+        <!-- Логотип-монограма (компактний варіант) -->
+        <svg viewBox="0 0 64 64" role="img" aria-label="Логотип">
+          <defs>
+            <linearGradient id="navLogoGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0A84FF" />
+              <stop offset="1" stop-color="#5E5CE6" />
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#navLogoGrad)" />
+          <path d="M22 24 L14 32 L22 40" fill="none" stroke="#fff" stroke-width="4"
+                stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M42 24 L50 32 L42 40" fill="none" stroke="#fff" stroke-width="4"
+                stroke-linecap="round" stroke-linejoin="round" />
+          <line x1="36" y1="20" x2="28" y2="44" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+        </svg>
+        <span>Євгеній</span>
+      </a>
+
+      <!-- Кнопка перемикання теми -->
+      <button class="theme-toggle" id="themeToggle" type="button"
+              aria-label="Перемкнути тему" aria-pressed="false">
+        <!-- Сонце (показується у темній темі) -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+          <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="2.5" x2="12" y2="5" />
+            <line x1="12" y1="19" x2="12" y2="21.5" />
+            <line x1="2.5" y1="12" x2="5" y2="12" />
+            <line x1="19" y1="12" x2="21.5" y2="12" />
+            <line x1="5.1" y1="5.1" x2="6.9" y2="6.9" />
+            <line x1="17.1" y1="17.1" x2="18.9" y2="18.9" />
+            <line x1="5.1" y1="18.9" x2="6.9" y2="17.1" />
+            <line x1="17.1" y1="6.9" x2="18.9" y2="5.1" />
+          </g>
+        </svg>
+        <!-- Місяць (показується у світлій темі) -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z"
+                fill="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero container reveal" aria-labelledby="heroTitle">
+      <!-- Головний логотип (велика монограма з градієнтом) -->
+      <div class="hero__logo">
+        <svg viewBox="0 0 120 120" role="img" aria-label="Логотип розробника">
+          <defs>
+            <linearGradient id="heroLogoGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0A84FF" />
+              <stop offset="0.55" stop-color="#3A82F7" />
+              <stop offset="1" stop-color="#5E5CE6" />
+            </linearGradient>
+            <linearGradient id="heroGlossGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,0.45)" />
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)" />
+            </linearGradient>
+          </defs>
+          <!-- «Аппова» плитка -->
+          <rect x="4" y="4" width="112" height="112" rx="30" fill="url(#heroLogoGrad)" />
+          <rect x="4" y="4" width="112" height="56" rx="30" fill="url(#heroGlossGrad)" />
+          <!-- Символ коду </> -->
+          <path d="M42 44 L26 60 L42 76" fill="none" stroke="#fff" stroke-width="6.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M78 44 L94 60 L78 76" fill="none" stroke="#fff" stroke-width="6.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+          <line x1="68" y1="38" x2="52" y2="82" stroke="#fff" stroke-width="6.5" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <h1 id="heroTitle">Євгеній</h1>
+      <p class="subtitle">Full-Stack Developer &amp; UI/UX Enthusiast</p>
+
+      <div class="badge">
+        <span class="dot" aria-hidden="true"></span>
+        Відкритий до нових проектів
+      </div>
+
+      <div class="hero__actions">
+        <a href="#portfolio" class="btn btn-primary">Мої роботи</a>
+        <a href="#contact-form" class="btn btn-secondary">Написати мені</a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ПОРТФОЛІО
+         ============================================================ -->
+    <section id="portfolio" aria-labelledby="portfolioTitle">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Portfolio</span>
+          <h2 id="portfolioTitle">Мої роботи</h2>
+          <p>Обрані проекти, створені з увагою до деталей і продуктивності.</p>
+        </div>
+
+        <div class="portfolio-grid">
+          <!-- Проект 1 -->
+          <article class="project-card reveal">
+            <div class="project-card__preview grad-1" aria-hidden="true">
+              <span class="project-card__mark">RB</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Red Berry Site</h3>
+              <span class="project-card__tag">Корпоративний сайт</span>
+              <p>Сучасний сайт HR-агенції з добіркою вакансій, послугами для роботодавців та стильним адаптивним інтерфейсом.</p>
+              <a class="project-card__link" href="https://red-berry-site.vercel.app/"
+                 target="_blank" rel="noopener noreferrer">
+                Переглянути
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Проект 2 -->
+          <article class="project-card reveal">
+            <div class="project-card__preview grad-2" aria-hidden="true">
+              <span class="project-card__mark">ET</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Elegant Travel</h3>
+              <span class="project-card__tag">Бізнес-тревел</span>
+              <p>Елегантна платформа для організації ділових подорожей: підбір турів, готелів та квитків із преміальним дизайном.</p>
+              <a class="project-card__link" href="https://elegant-travel.vercel.app/"
+                 target="_blank" rel="noopener noreferrer">
+                Переглянути
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Проект 3 -->
+          <article class="project-card reveal">
+            <div class="project-card__preview grad-3" aria-hidden="true">
+              <span class="project-card__mark">PB</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Psychologist Bereziuk</h3>
+              <span class="project-card__tag">Особистий бренд</span>
+              <p>Затишний сайт-візитка для практикуючого психолога: опис послуг, напрямків терапії та зручна форма запису на консультацію.</p>
+              <a class="project-card__link" href="https://psychologist-bereziuk.vercel.app/"
+                 target="_blank" rel="noopener noreferrer">
+                Переглянути
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Проект 4 -->
+          <article class="project-card reveal">
+            <div class="project-card__preview grad-4" aria-hidden="true">
+              <span class="project-card__mark">ML</span>
+            </div>
+            <div class="project-card__body">
+              <h3>Maltipoo Land</h3>
+              <span class="project-card__tag">Розплідник</span>
+              <p>Яскравий сайт розплідника собак породи мальтіпу: галерея цуценят, інформація про породу та форма для бронювання.</p>
+              <a class="project-card__link" href="https://maltipoo-land.vercel.app/"
+                 target="_blank" rel="noopener noreferrer">
+                Переглянути
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         КОНТАКТИ
+         ============================================================ -->
+    <section id="contacts" aria-labelledby="contactsTitle">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Contacts</span>
+          <h2 id="contactsTitle">Контакти</h2>
+          <p>Знайдіть мене в мережі або напишіть напряму.</p>
+        </div>
+
+        <div class="contacts reveal">
+          <!-- GitHub -->
+          <a class="contact-chip" href="https://github.com/Spxr3dox"
+             target="_blank" rel="noopener noreferrer" aria-label="GitHub профіль">
+            <span class="contact-chip__icon gh" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/>
+              </svg>
+            </span>
+            <span class="contact-chip__meta">
+              <small>GitHub</small>
+              <span>@Spxr3dox</span>
+            </span>
+          </a>
+
+          <!-- Telegram -->
+          <a class="contact-chip" href="https://t.me/TheGarvey"
+             target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <span class="contact-chip__icon tg" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9L18 6.3c.4-.3-.1-.5-.6-.2L6.9 12.9l-4.7-1.5c-1-.3-1-.9.2-1.4l18.4-7.1c.8-.3 1.5.2 1.1 1.4z"/>
+              </svg>
+            </span>
+            <span class="contact-chip__meta">
+              <small>Telegram</small>
+              <span>@TheGarvey</span>
+            </span>
+          </a>
+
+          <!-- Email -->
+          <a class="contact-chip" href="mailto:genius.space.bel@gmail.com"
+             aria-label="Надіслати email">
+            <span class="contact-chip__icon mail" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="3.5" stroke="currentColor" stroke-width="2"/>
+                <path d="M3.5 6.5 12 12.5l8.5-6" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="contact-chip__meta">
+              <small>Email</small>
+              <span>genius.space.bel@gmail.com</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ФОРМА «Написати мені»
+         ============================================================ -->
+    <section id="contact-form" aria-labelledby="formTitle">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Get in touch</span>
+          <h2 id="formTitle">Написати мені</h2>
+          <p>Розкажіть про свій проект — і я відповім найближчим часом.</p>
+        </div>
+
+        <div class="form-wrap reveal">
+          <!-- Банер успішного надсилання -->
+          <div class="success-banner" id="successBanner" role="status" aria-live="polite">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" fill="#34C759"/>
+              <path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#fff" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Дякую! Ваше повідомлення надіслано. Я зв'яжуся з вами найближчим часом.</span>
+          </div>
+
+          <!-- ЗАМІНІТЬ "your_id" на власний ідентифікатор Formspree -->
+          <form id="contactForm" action="https://formspree.io/f/your_id"
+                method="POST" novalidate>
+            <div class="field-row">
+              <!-- Ім'я -->
+              <div class="field" id="field-name">
+                <label for="name">Ім'я <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" type="text" id="name" name="name"
+                       placeholder="Ваше ім'я" required autocomplete="name" />
+                <span class="error-msg">Будь ласка, вкажіть ваше ім'я.</span>
+              </div>
+
+              <!-- Email -->
+              <div class="field" id="field-email">
+                <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" type="email" id="email" name="email"
+                       placeholder="you@example.com" required autocomplete="email" />
+                <span class="error-msg">Введіть коректну email-адресу.</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <!-- Тип проекту -->
+              <div class="field" id="field-type">
+                <label for="projectType">Тип проекту</label>
+                <div class="select-wrap">
+                  <select class="select" id="projectType" name="projectType">
+                    <option value="Сайт-візитка">Сайт-візитка</option>
+                    <option value="Лендінг">Лендінг</option>
+                    <option value="Інтернет-магазин">Інтернет-магазин</option>
+                    <option value="Веб-додаток">Веб-додаток</option>
+                    <option value="Інше">Інше</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Бюджет -->
+              <div class="field" id="field-budget">
+                <label for="budget">Бюджет</label>
+                <div class="budget-wrap">
+                  <input class="input" type="number" id="budget" name="budget"
+                         placeholder="1000" min="0" step="50" inputmode="numeric" />
+                  <span class="currency">USD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Опис проекту -->
+            <div class="field" id="field-message">
+              <label for="message">Опис проекту <span class="req" aria-hidden="true">*</span></label>
+              <textarea class="textarea" id="message" name="message"
+                        placeholder="Опишіть завдання, терміни та побажання…" required></textarea>
+              <span class="error-msg">Додайте короткий опис проекту.</span>
+            </div>
+
+            <button class="btn btn-primary form-submit" type="submit">
+              Надіслати повідомлення
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       ФУТЕР
+       ============================================================ -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Євгеній. Усі права захищені.</p>
+      <div class="footer-links">
+        <a href="https://github.com/Spxr3dox" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://t.me/TheGarvey" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="mailto:genius.space.bel@gmail.com">Email</a>
+      </div>
+      <p style="margin-top:14px; font-size:13px; color:var(--text-tertiary);">
+        Створено з ❤️ та увагою до деталей. Вихідний код на
+        <a href="https://github.com/Spxr3dox/MyOwn" target="_blank" rel="noopener noreferrer">GitHub</a>.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       СКРИПТИ (усі вбудовані)
+       ============================================================ -->
+  <script>
+    (function () {
+      "use strict";
+
+      /* ---------- 1. Керування темою ---------- */
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const STORAGE_KEY = "preferred-theme";
+
+      // Визначаємо початкову тему: збережений вибір → системні налаштування
+      function getInitialTheme() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved === "light" || saved === "dark") return saved;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+        toggle.setAttribute(
+          "aria-label",
+          theme === "dark" ? "Увімкнути світлу тему" : "Увімкнути темну тему"
+        );
+      }
+
+      applyTheme(getInitialTheme());
+
+      // Ручний перемикач
+      toggle.addEventListener("click", function () {
+        const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        applyTheme(next);
+        localStorage.setItem(STORAGE_KEY, next);
+      });
+
+      // Реагуємо на зміну системної теми, якщо користувач не зробив ручний вибір
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          applyTheme(e.matches ? "dark" : "light");
+        }
+      });
+
+      /* ---------- 2. Плавна поява елементів (Intersection Observer) ---------- */
+      const revealEls = document.querySelectorAll(".reveal");
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+        revealEls.forEach(function (el) { io.observe(el); });
+      } else {
+        // Фолбек: одразу показуємо все
+        revealEls.forEach(function (el) { el.classList.add("visible"); });
+      }
+
+      /* ---------- 3. Валідація та надсилання форми ---------- */
+      const form = document.getElementById("contactForm");
+      const successBanner = document.getElementById("successBanner");
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function setInvalid(fieldId, invalid) {
+        const field = document.getElementById(fieldId);
+        if (field) field.classList.toggle("invalid", invalid);
+      }
+
+      function validate() {
+        let ok = true;
+
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const message = document.getElementById("message");
+
+        const nameBad = name.value.trim() === "";
+        setInvalid("field-name", nameBad);
+        if (nameBad) ok = false;
+
+        const emailBad = !emailRe.test(email.value.trim());
+        setInvalid("field-email", emailBad);
+        if (emailBad) ok = false;
+
+        const msgBad = message.value.trim() === "";
+        setInvalid("field-message", msgBad);
+        if (msgBad) ok = false;
+
+        return ok;
+      }
+
+      // Прибираємо помилку одразу, щойно користувач виправляє поле
+      ["name", "email", "message"].forEach(function (id) {
+        document.getElementById(id).addEventListener("input", function () {
+          document.getElementById("field-" + id).classList.remove("invalid");
+        });
+      });
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        successBanner.classList.remove("show");
+
+        if (!validate()) {
+          // Прокручуємо до першого некоректного поля
+          const firstInvalid = form.querySelector(".field.invalid .input, .field.invalid .textarea");
+          if (firstInvalid) firstInvalid.focus();
+          return;
+        }
+
+        const submitBtn = form.querySelector(".form-submit");
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Надсилання…";
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { "Accept": "application/json" }
+          });
+
+          if (response.ok) {
+            form.reset();
+            successBanner.classList.add("show");
+            successBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else {
+            alert("Не вдалося надіслати повідомлення. Спробуйте пізніше або напишіть на email.");
+          }
+        } catch (err) {
+          // Якщо Formspree ще не налаштовано (плейсхолдер your_id) — покажемо підказку
+          alert("Помилка надсилання. Переконайтеся, що форму Formspree налаштовано (замініть your_id).");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
