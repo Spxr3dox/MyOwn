@@ -10,630 +10,460 @@
 
   <!-- ============================================================
        SPAXER STUDIO · single-file landing
-       Естетика: iOS / Apple HIG × «liquid glass».
-       Живий градієнтний фон (aurora), зерно, світлові spotlight-и,
-       магнітні кнопки, плавні reveal-анімації. Світла/темна теми.
+       iOS / Apple HIG × «liquid glass».
+       Живі скріншоти проектів, aurora-фон, зерно, spotlight,
+       магнітні кнопки, reveal-анімації, теми (світла/темна),
+       перемикач мови UA ⇄ EN.
        ============================================================ -->
   <style>
     /* ============================================================
-       1. ДИЗАЙН-ТОКЕНИ
+       1. ТОКЕНИ
        ============================================================ */
     :root {
-      /* Акцентна палітра */
-      --accent:        #0A84FF;
-      --accent-2:      #5E5CE6;   /* індиго */
-      --accent-3:      #64D2FF;   /* блакитний неон */
-      --accent-hover:  #3A9BFF;
-      --accent-soft:   rgba(10, 132, 255, 0.14);
-      --accent-grad:   linear-gradient(120deg, #0A84FF 0%, #5E5CE6 55%, #64D2FF 100%);
-
-      --radius-xl: 34px;
-      --radius-lg: 26px;
-      --radius-md: 18px;
-      --radius-sm: 13px;
-
-      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
+      --accent: #0A84FF; --accent-2: #5E5CE6; --accent-3: #64D2FF;
+      --accent-hover: #3A9BFF; --accent-soft: rgba(10,132,255,0.14);
+      --accent-grad: linear-gradient(120deg,#0A84FF 0%,#5E5CE6 55%,#64D2FF 100%);
+      --radius-xl: 34px; --radius-lg: 26px; --radius-md: 18px; --radius-sm: 13px;
+      --ease-out: cubic-bezier(0.16,1,0.3,1);
+      --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
       --shell-max: 1160px;
     }
-
-    /* ---- Темна тема (за замовчуванням) ---- */
     [data-theme="dark"] {
-      --bg:            #05060A;
-      --bg-2:          #0B0D14;
-      --aurora-1:      rgba(10, 132, 255, 0.55);
-      --aurora-2:      rgba(94, 92, 230, 0.45);
-      --aurora-3:      rgba(100, 210, 255, 0.32);
-
-      --text:          #F5F5F7;
-      --text-2:        #A7A9B4;
-      --text-3:        #6E7079;
-
-      --card-bg:       rgba(255, 255, 255, 0.045);
-      --card-bg-2:     rgba(255, 255, 255, 0.02);
-      --card-border:   rgba(255, 255, 255, 0.10);
-      --card-border-hover: rgba(255, 255, 255, 0.22);
-      --card-shadow:   0 20px 60px rgba(0, 0, 0, 0.55);
-      --hairline:      rgba(255, 255, 255, 0.08);
-
-      --control-bg:    rgba(255, 255, 255, 0.06);
-      --control-border: rgba(255, 255, 255, 0.12);
-      --nav-bg:        rgba(8, 10, 16, 0.55);
-      --grain-opacity: 0.055;
+      --bg:#05060A; --bg-2:#0B0D14;
+      --aurora-1:rgba(10,132,255,0.55); --aurora-2:rgba(94,92,230,0.45); --aurora-3:rgba(100,210,255,0.32);
+      --text:#F5F5F7; --text-2:#A7A9B4; --text-3:#6E7079;
+      --card-bg:rgba(255,255,255,0.045); --card-border:rgba(255,255,255,0.10);
+      --card-border-hover:rgba(255,255,255,0.22); --card-shadow:0 20px 60px rgba(0,0,0,0.55);
+      --hairline:rgba(255,255,255,0.08);
+      --control-bg:rgba(255,255,255,0.06); --control-border:rgba(255,255,255,0.12);
+      --nav-bg:rgba(8,10,16,0.55); --grain-opacity:0.055; --shot-bg:#0f1118;
     }
-
-    /* ---- Світла тема ---- */
     [data-theme="light"] {
-      --bg:            #EDEEF3;
-      --bg-2:          #F7F8FC;
-      --aurora-1:      rgba(10, 132, 255, 0.30);
-      --aurora-2:      rgba(94, 92, 230, 0.22);
-      --aurora-3:      rgba(100, 210, 255, 0.26);
-
-      --text:          #0B0B0F;
-      --text-2:        #55585F;
-      --text-3:        #8A8D96;
-
-      --card-bg:       rgba(255, 255, 255, 0.65);
-      --card-bg-2:     rgba(255, 255, 255, 0.35);
-      --card-border:   rgba(255, 255, 255, 0.9);
-      --card-border-hover: rgba(10, 132, 255, 0.35);
-      --card-shadow:   0 18px 50px rgba(20, 30, 60, 0.12);
-      --hairline:      rgba(0, 0, 0, 0.08);
-
-      --control-bg:    rgba(255, 255, 255, 0.7);
-      --control-border: rgba(0, 0, 0, 0.10);
-      --nav-bg:        rgba(237, 238, 243, 0.62);
-      --grain-opacity: 0.03;
-
-      --accent:        #007AFF;
-      --accent-soft:   rgba(0, 122, 255, 0.12);
+      --bg:#EDEEF3; --bg-2:#F7F8FC;
+      --aurora-1:rgba(10,132,255,0.30); --aurora-2:rgba(94,92,230,0.22); --aurora-3:rgba(100,210,255,0.26);
+      --text:#0B0B0F; --text-2:#55585F; --text-3:#8A8D96;
+      --card-bg:rgba(255,255,255,0.65); --card-border:rgba(255,255,255,0.9);
+      --card-border-hover:rgba(10,132,255,0.35); --card-shadow:0 18px 50px rgba(20,30,60,0.12);
+      --hairline:rgba(0,0,0,0.08);
+      --control-bg:rgba(255,255,255,0.7); --control-border:rgba(0,0,0,0.10);
+      --nav-bg:rgba(237,238,243,0.62); --grain-opacity:0.03; --shot-bg:#dfe2ea;
+      --accent:#007AFF; --accent-soft:rgba(0,122,255,0.12);
     }
 
     /* ============================================================
        2. БАЗА
        ============================================================ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-                   "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background-color 0.6s var(--ease-out), color 0.6s var(--ease-out);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","Segoe UI",Roboto,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.55; min-height:100vh;
+      overflow-x:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      transition:background-color .6s var(--ease-out),color .6s var(--ease-out);
     }
+    .bg-aurora { position:fixed; inset:-20vmax; z-index:-3; pointer-events:none; filter:blur(70px) saturate(140%); }
+    .bg-aurora span { position:absolute; border-radius:50%; mix-blend-mode:screen; opacity:.9; will-change:transform; }
+    [data-theme="light"] .bg-aurora span { mix-blend-mode:normal; opacity:.8; }
+    .blob-1 { width:46vmax;height:46vmax;left:4%;top:-6%; background:radial-gradient(circle,var(--aurora-1) 0%,transparent 68%); animation:d1 22s ease-in-out infinite; }
+    .blob-2 { width:40vmax;height:40vmax;right:2%;top:8%; background:radial-gradient(circle,var(--aurora-2) 0%,transparent 68%); animation:d2 26s ease-in-out infinite; }
+    .blob-3 { width:44vmax;height:44vmax;left:32%;bottom:-14%; background:radial-gradient(circle,var(--aurora-3) 0%,transparent 68%); animation:d3 30s ease-in-out infinite; }
+    @keyframes d1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(8vw,6vh) scale(1.12)} }
+    @keyframes d2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-7vw,9vh) scale(1.08)} }
+    @keyframes d3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(5vw,-7vh) scale(1.15)} }
 
-    /* ---- Живий фон: aurora-плями ---- */
-    .bg-aurora {
-      position: fixed; inset: -20vmax; z-index: -3; pointer-events: none;
-      filter: blur(70px) saturate(140%);
-      transition: opacity 0.6s var(--ease-out);
-    }
-    .bg-aurora span {
-      position: absolute; border-radius: 50%;
-      mix-blend-mode: screen; opacity: 0.9;
-      will-change: transform;
-    }
-    [data-theme="light"] .bg-aurora span { mix-blend-mode: normal; opacity: 0.8; }
-    .blob-1 { width: 46vmax; height: 46vmax; left: 4%;  top: -6%;
-              background: radial-gradient(circle, var(--aurora-1) 0%, transparent 68%);
-              animation: drift1 22s ease-in-out infinite; }
-    .blob-2 { width: 40vmax; height: 40vmax; right: 2%; top: 8%;
-              background: radial-gradient(circle, var(--aurora-2) 0%, transparent 68%);
-              animation: drift2 26s ease-in-out infinite; }
-    .blob-3 { width: 44vmax; height: 44vmax; left: 32%; bottom: -14%;
-              background: radial-gradient(circle, var(--aurora-3) 0%, transparent 68%);
-              animation: drift3 30s ease-in-out infinite; }
-    @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(8vw,6vh) scale(1.12)} }
-    @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-7vw,9vh) scale(1.08)} }
-    @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(5vw,-7vh) scale(1.15)} }
+    .bg-grain { position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:var(--grain-opacity);
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .bg-grid { position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.6;
+      background-image:linear-gradient(var(--hairline) 1px,transparent 1px),linear-gradient(90deg,var(--hairline) 1px,transparent 1px);
+      background-size:64px 64px;
+      -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+      mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%); }
 
-    /* ---- Зерно (grain) поверх усього ---- */
-    .bg-grain {
-      position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      opacity: var(--grain-opacity);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-    /* ---- Легка сітка-хайрлайн ---- */
-    .bg-grid {
-      position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background-image:
-        linear-gradient(var(--hairline) 1px, transparent 1px),
-        linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 0%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 0%, transparent 75%);
-      opacity: 0.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--accent); color: #fff; }
-
-    .shell { width: 100%; max-width: var(--shell-max); margin: 0 auto; padding: 0 22px; }
-
-    /* Градієнтний текст */
-    .grad-text {
-      background: var(--accent-grad);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
-    }
+    a { color:inherit; text-decoration:none; }
+    ::selection { background:var(--accent); color:#fff; }
+    .shell { width:100%; max-width:var(--shell-max); margin:0 auto; padding:0 22px; }
+    .grad-text { background:var(--accent-grad); -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent; color:transparent; }
 
     /* ============================================================
        3. НАВБАР
        ============================================================ */
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--nav-bg);
-      -webkit-backdrop-filter: saturate(180%) blur(24px);
-      backdrop-filter: saturate(180%) blur(24px);
-      border-bottom: 1px solid var(--hairline);
-      transition: background 0.6s var(--ease-out);
-    }
-    .nav__in { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .nav { position:sticky; top:0; z-index:100; background:var(--nav-bg);
+      -webkit-backdrop-filter:saturate(180%) blur(24px); backdrop-filter:saturate(180%) blur(24px);
+      border-bottom:1px solid var(--hairline); transition:background .6s var(--ease-out); }
+    .nav__in { display:flex; align-items:center; justify-content:space-between; height:66px; gap:12px; }
+    .brand { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+    .brand__mark { width:40px; height:40px; flex-shrink:0; }
+    .brand__mark svg { width:100%; height:100%; display:block; }
+    .brand__text { display:flex; flex-direction:column; line-height:1; }
+    .brand__name { font-size:18px; font-weight:700; letter-spacing:-0.4px; }
+    .brand__sub { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--text-3); margin-top:3px; }
+    .nav__right { display:flex; align-items:center; gap:10px; }
+    .nav__links { display:flex; gap:4px; }
+    .nav__links a { font-size:14px; font-weight:600; color:var(--text-2); padding:8px 14px; border-radius:999px; transition:color .25s,background .25s; }
+    .nav__links a:hover { color:var(--text); background:var(--control-bg); }
+    @media (max-width:820px) { .nav__links { display:none; } }
 
-    /* Лого-локап у навбарі */
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand__mark { width: 40px; height: 40px; flex-shrink: 0; }
-    .brand__mark svg { width: 100%; height: 100%; display: block; }
-    .brand__text { display: flex; flex-direction: column; line-height: 1; }
-    .brand__name { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
-    .brand__sub  { font-size: 10px; font-weight: 600; letter-spacing: 3px;
-                   text-transform: uppercase; color: var(--text-3); margin-top: 3px; }
+    .pill-btn { height:44px; padding:0 16px; border-radius:999px; border:1px solid var(--control-border);
+      background:var(--control-bg); color:var(--text); font-family:inherit; font-weight:700; font-size:13px;
+      letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:7px;
+      transition:transform .25s var(--ease-spring),border-color .3s,background .3s; -webkit-tap-highlight-color:transparent; }
+    .pill-btn:hover { border-color:var(--accent); transform:translateY(-1px); }
+    .pill-btn:active { transform:scale(.94); }
+    .pill-btn svg { width:16px; height:16px; }
 
-    .nav__right { display: flex; align-items: center; gap: 10px; }
-    .nav__links { display: flex; gap: 4px; }
-    .nav__links a {
-      font-size: 14px; font-weight: 600; color: var(--text-2);
-      padding: 8px 14px; border-radius: 999px; transition: color 0.25s, background 0.25s;
-    }
-    .nav__links a:hover { color: var(--text); background: var(--control-bg); }
-    @media (max-width: 720px) { .nav__links { display: none; } }
-
-    /* Перемикач теми */
-    .theme-toggle {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 1px solid var(--control-border); background: var(--control-bg);
-      color: var(--text); display: grid; place-items: center; cursor: pointer;
-      position: relative; overflow: hidden;
-      transition: transform 0.25s var(--ease-spring), border-color 0.3s, background 0.3s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .theme-toggle:hover { transform: scale(1.08); border-color: var(--accent); }
-    .theme-toggle:active { transform: scale(0.92); }
-    .theme-toggle svg {
-      position: absolute; width: 22px; height: 22px;
-      transition: opacity 0.45s var(--ease-out), transform 0.6s var(--ease-spring);
-    }
-    .theme-toggle .i-sun  { opacity: 1; transform: rotate(0) scale(1); }
-    .theme-toggle .i-moon { opacity: 0; transform: rotate(90deg) scale(0.3); }
-    [data-theme="light"] .theme-toggle .i-sun  { opacity: 0; transform: rotate(-90deg) scale(0.3); }
-    [data-theme="light"] .theme-toggle .i-moon { opacity: 1; transform: rotate(0) scale(1); }
+    .theme-toggle { width:44px; height:44px; border-radius:50%; border:1px solid var(--control-border);
+      background:var(--control-bg); color:var(--text); display:grid; place-items:center; cursor:pointer;
+      position:relative; overflow:hidden; transition:transform .25s var(--ease-spring),border-color .3s,background .3s;
+      -webkit-tap-highlight-color:transparent; flex-shrink:0; }
+    .theme-toggle:hover { transform:scale(1.08); border-color:var(--accent); }
+    .theme-toggle:active { transform:scale(.92); }
+    .theme-toggle svg { position:absolute; width:22px; height:22px; transition:opacity .45s var(--ease-out),transform .6s var(--ease-spring); }
+    .theme-toggle .i-sun { opacity:1; transform:rotate(0) scale(1); }
+    .theme-toggle .i-moon { opacity:0; transform:rotate(90deg) scale(.3); }
+    [data-theme="light"] .theme-toggle .i-sun { opacity:0; transform:rotate(-90deg) scale(.3); }
+    [data-theme="light"] .theme-toggle .i-moon { opacity:1; transform:rotate(0) scale(1); }
 
     /* ============================================================
-       4. СЕКЦІЇ / ЗАГОЛОВКИ
+       4. СЕКЦІЇ
        ============================================================ */
-    section { padding: 96px 0; }
-    .head { max-width: 640px; margin: 0 auto 52px; text-align: center; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--accent);
-      padding: 7px 14px; border-radius: 999px;
-      background: var(--accent-soft); border: 1px solid var(--card-border);
-    }
-    .head h2 { font-size: clamp(30px, 5.5vw, 48px); font-weight: 800; letter-spacing: -1.2px; margin-top: 18px; line-height: 1.05; }
-    .head p  { color: var(--text-2); margin-top: 14px; font-size: 17px; }
+    section { padding:96px 0; }
+    .head { max-width:640px; margin:0 auto 52px; text-align:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase; color:var(--accent); padding:7px 14px; border-radius:999px;
+      background:var(--accent-soft); border:1px solid var(--card-border); }
+    .head h2 { font-size:clamp(30px,5.5vw,48px); font-weight:800; letter-spacing:-1.2px; margin-top:18px; line-height:1.05; }
+    .head p { color:var(--text-2); margin-top:14px; font-size:17px; }
 
     /* ============================================================
        5. HERO
        ============================================================ */
-    .hero { text-align: center; padding-top: 90px; padding-bottom: 60px; }
-
-    .hero__emblem { width: 132px; height: 132px; margin: 0 auto 34px;
-                    filter: drop-shadow(0 18px 46px rgba(10,132,255,0.45)); }
-    .hero__emblem svg { width: 100%; height: 100%; display: block; }
+    .hero { text-align:center; padding-top:90px; padding-bottom:60px; }
+    .hero__emblem { width:132px; height:132px; margin:0 auto 34px;
+      filter:drop-shadow(0 18px 46px rgba(10,132,255,0.45)); animation:floaty 6s ease-in-out infinite; }
+    .hero__emblem svg { width:100%; height:100%; display:block; }
     @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    .hero__emblem { animation: floaty 6s ease-in-out infinite; }
-
-    /* Головний вордмарк «Spaxer Studio» */
-    .hero__wordmark { font-weight: 800; letter-spacing: -2px; line-height: 0.95; }
-    .hero__wordmark .l1 { display: block; font-size: clamp(52px, 12vw, 112px); }
-    .hero__wordmark .l2 {
-      display: block; font-size: clamp(20px, 4.4vw, 34px);
-      letter-spacing: 12px; text-transform: uppercase; font-weight: 600;
-      color: var(--text-2); margin-top: 6px; padding-left: 12px;
-    }
-
-    .hero__tagline { margin-top: 24px; font-size: clamp(17px, 3.4vw, 22px);
-                     color: var(--text-2); font-weight: 500; max-width: 560px;
-                     margin-left: auto; margin-right: auto; }
-
-    .hero__pill {
-      display: inline-flex; align-items: center; gap: 9px; margin-top: 26px;
-      padding: 9px 18px; border-radius: 999px;
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-      font-size: 14px; font-weight: 600; color: var(--text-2); box-shadow: var(--card-shadow);
-    }
-    .hero__pill .dot { width: 9px; height: 9px; border-radius: 50%; background: #30D158;
-                       box-shadow: 0 0 0 4px rgba(48,209,88,0.22); animation: pulse 2.4s infinite; }
+    .hero__wordmark { font-weight:800; letter-spacing:-2px; line-height:.95; }
+    .hero__wordmark .l1 { display:block; font-size:clamp(52px,12vw,112px); background-size:200% auto; animation:shine 6s linear infinite; }
+    @keyframes shine { to { background-position:200% center; } }
+    .hero__wordmark .l2 { display:block; font-size:clamp(20px,4.4vw,34px); letter-spacing:12px;
+      text-transform:uppercase; font-weight:600; color:var(--text-2); margin-top:6px; padding-left:12px; }
+    .hero__tagline { margin-top:24px; font-size:clamp(17px,3.4vw,22px); color:var(--text-2); font-weight:500;
+      max-width:580px; margin-left:auto; margin-right:auto; }
+    .hero__pill { display:inline-flex; align-items:center; gap:9px; margin-top:26px; padding:9px 18px;
+      border-radius:999px; background:var(--card-bg); border:1px solid var(--card-border);
+      -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); font-size:14px; font-weight:600;
+      color:var(--text-2); box-shadow:var(--card-shadow); }
+    .hero__pill .dot { width:9px; height:9px; border-radius:50%; background:#30D158;
+      box-shadow:0 0 0 4px rgba(48,209,88,0.22); animation:pulse 2.4s infinite; }
     @keyframes pulse { 0%,100%{box-shadow:0 0 0 4px rgba(48,209,88,0.22)} 50%{box-shadow:0 0 0 8px rgba(48,209,88,0)} }
-
-    .hero__cta { margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    /* Смужка статистики */
-    .stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 64px; }
-    .stat { text-align: center; }
-    .stat b { display: block; font-size: 34px; font-weight: 800; letter-spacing: -1px; }
-    .stat span { font-size: 13px; color: var(--text-3); font-weight: 600;
-                 text-transform: uppercase; letter-spacing: 1.5px; }
+    .hero__cta { margin-top:38px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .stats { display:flex; gap:40px; justify-content:center; flex-wrap:wrap; margin-top:64px; }
+    .stat { text-align:center; }
+    .stat b { display:block; font-size:34px; font-weight:800; letter-spacing:-1px; }
+    .stat span { font-size:13px; color:var(--text-3); font-weight:600; text-transform:uppercase; letter-spacing:1.5px; }
 
     /* ============================================================
        6. КНОПКИ
        ============================================================ */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-      font-family: inherit; font-size: 16px; font-weight: 600;
-      padding: 15px 30px; border-radius: 999px; border: none; cursor: pointer;
-      position: relative; will-change: transform;
-      transition: transform 0.35s var(--ease-out), box-shadow 0.3s, background 0.3s, opacity 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-primary { color: #fff; background: var(--accent-grad); background-size: 160% 160%;
-                   box-shadow: 0 12px 30px rgba(10,132,255,0.4); }
-    .btn-primary:hover { box-shadow: 0 18px 44px rgba(10,132,255,0.5); background-position: 100% 0; }
-    .btn-primary:active { transform: scale(0.97); }
-    .btn-ghost { color: var(--text); background: var(--control-bg); border: 1px solid var(--control-border);
-                 -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
-    .btn-ghost:hover { border-color: var(--accent); }
-    .btn-ghost:active { transform: scale(0.97); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; font-family:inherit;
+      font-size:16px; font-weight:600; padding:15px 30px; border-radius:999px; border:none; cursor:pointer;
+      position:relative; will-change:transform;
+      transition:transform .35s var(--ease-out),box-shadow .3s,background .3s,opacity .2s; -webkit-tap-highlight-color:transparent; }
+    .btn-primary { color:#fff; background:var(--accent-grad); background-size:160% 160%; box-shadow:0 12px 30px rgba(10,132,255,0.4); }
+    .btn-primary:hover { box-shadow:0 18px 44px rgba(10,132,255,0.5); background-position:100% 0; }
+    .btn-primary:active { transform:scale(.97); }
+    .btn-ghost { color:var(--text); background:var(--control-bg); border:1px solid var(--control-border);
+      -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); }
+    .btn-ghost:hover { border-color:var(--accent); }
+    .btn-ghost:active { transform:scale(.97); }
 
     /* ============================================================
        7. ПОРТФОЛІО
        ============================================================ */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:24px; }
+    .card { position:relative; display:flex; flex-direction:column; overflow:hidden; background:var(--card-bg);
+      border:1px solid var(--card-border); border-radius:var(--radius-lg); box-shadow:var(--card-shadow);
+      -webkit-backdrop-filter:saturate(160%) blur(22px); backdrop-filter:saturate(160%) blur(22px);
+      transition:transform .5s var(--ease-out),border-color .4s,box-shadow .4s; }
+    .card:hover { transform:translateY(-10px); border-color:var(--card-border-hover); }
+    .card::before { content:""; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0; transition:opacity .4s;
+      background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(10,132,255,0.16),transparent 70%); }
+    .card:hover::before { opacity:1; }
 
-    .card {
-      position: relative; display: flex; flex-direction: column; overflow: hidden;
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg); box-shadow: var(--card-shadow);
-      -webkit-backdrop-filter: saturate(160%) blur(22px); backdrop-filter: saturate(160%) blur(22px);
-      transition: transform 0.5s var(--ease-out), border-color 0.4s, box-shadow 0.4s;
-    }
-    .card:hover { transform: translateY(-10px); border-color: var(--card-border-hover); }
-    /* Spotlight, що йде за курсором (координати з JS) */
-    .card::before {
-      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      opacity: 0; transition: opacity 0.4s;
-      background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 0%),
-                  rgba(10,132,255,0.16), transparent 70%);
-    }
-    .card:hover::before { opacity: 1; }
+    /* Прев'ю = живий скріншот сайту */
+    .card__preview { position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--shot-bg); }
+    .card__shot { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center;
+      opacity:0; transition:opacity .7s var(--ease-out),transform .6s var(--ease-out);
+      transform:scale(1.02); z-index:1; }
+    .card__shot.loaded { opacity:1; transform:scale(1); }
+    .card:hover .card__shot.loaded { transform:scale(1.05); }
+    /* Фолбек-плашка (поки скрін вантажиться або якщо не завантажився) */
+    .card__fallback { position:absolute; inset:0; display:grid; place-items:center; color:#fff; z-index:0; }
+    .card__fallback span { font-size:56px; font-weight:800; letter-spacing:-2px; text-shadow:0 8px 24px rgba(0,0,0,.28); }
+    .g1 { background:linear-gradient(135deg,#FF5E62,#FF2D55); }
+    .g2 { background:linear-gradient(135deg,#0A84FF,#5E5CE6); }
+    .g3 { background:linear-gradient(135deg,#30D158,#30B0C7); }
+    .g4 { background:linear-gradient(135deg,#FF9F0A,#FF375F); }
+    /* Браузерна шапка поверх скріна */
+    .card__chrome { position:absolute; top:0; left:0; right:0; height:34px; z-index:3;
+      display:flex; align-items:center; gap:7px; padding:0 14px;
+      background:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0)); }
+    .card__chrome i { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.6); }
+    .card__no { position:absolute; right:14px; bottom:12px; z-index:3; font-size:13px; font-weight:700;
+      color:#fff; letter-spacing:1px; text-shadow:0 2px 8px rgba(0,0,0,.5); }
 
-    .card__preview { position: relative; height: 186px; display: grid; place-items: center;
-                     overflow: hidden; color: #fff; }
-    .card__preview::after { content: ""; position: absolute; inset: 0;
-      background: linear-gradient(160deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 42%); }
-    /* Тонка «браузерна» шапка на прев'ю */
-    .card__chrome { position: absolute; top: 14px; left: 16px; display: flex; gap: 7px; z-index: 2; }
-    .card__chrome i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.55); }
-    .card__mark { font-size: 58px; font-weight: 800; letter-spacing: -2px; z-index: 1;
-                  text-shadow: 0 8px 24px rgba(0,0,0,0.28); }
-    .card__no { position: absolute; right: 16px; bottom: 12px; z-index: 2;
-                font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); letter-spacing: 1px; }
-
-    .g1 { background: linear-gradient(135deg, #FF5E62, #FF2D55); }
-    .g2 { background: linear-gradient(135deg, #0A84FF, #5E5CE6); }
-    .g3 { background: linear-gradient(135deg, #30D158, #30B0C7); }
-    .g4 { background: linear-gradient(135deg, #FF9F0A, #FF375F); }
-
-    .card__body { padding: 22px 24px 26px; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
-    .card__body h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.4px; }
-    .card__tag { align-self: flex-start; margin-top: 9px; font-size: 12px; font-weight: 700;
-                 color: var(--accent); background: var(--accent-soft); padding: 5px 11px; border-radius: 999px; }
-    .card__body p { margin-top: 13px; color: var(--text-2); font-size: 15px; flex: 1; }
-    .card__link { align-self: flex-start; margin-top: 20px; display: inline-flex; align-items: center; gap: 7px;
-                  font-weight: 600; color: #fff; background: var(--accent); padding: 11px 20px; border-radius: 999px;
-                  transition: gap 0.3s, transform 0.25s, box-shadow 0.3s; box-shadow: 0 8px 20px var(--accent-soft); }
-    .card__link:hover { gap: 11px; transform: translateY(-2px); box-shadow: 0 12px 26px rgba(10,132,255,0.4); }
-    .card__link svg { width: 16px; height: 16px; }
+    .card__body { padding:22px 24px 26px; display:flex; flex-direction:column; flex:1; position:relative; z-index:1; }
+    .card__body h3 { font-size:21px; font-weight:700; letter-spacing:-0.4px; }
+    .card__tag { align-self:flex-start; margin-top:9px; font-size:12px; font-weight:700; color:var(--accent);
+      background:var(--accent-soft); padding:5px 11px; border-radius:999px; }
+    .card__body p { margin-top:13px; color:var(--text-2); font-size:15px; flex:1; }
+    .card__link { align-self:flex-start; margin-top:20px; display:inline-flex; align-items:center; gap:7px;
+      font-weight:600; color:#fff; background:var(--accent); padding:11px 20px; border-radius:999px;
+      transition:gap .3s,transform .25s,box-shadow .3s; box-shadow:0 8px 20px var(--accent-soft); }
+    .card__link:hover { gap:11px; transform:translateY(-2px); box-shadow:0 12px 26px rgba(10,132,255,0.4); }
+    .card__link svg { width:16px; height:16px; }
 
     /* ============================================================
-       8. КОНТАКТИ
+       8. КОНТАКТИ  (email більше не «ламається»)
        ============================================================ */
-    .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 860px; margin: 0 auto; }
-    .chip {
-      display: flex; align-items: center; gap: 14px; padding: 18px 22px;
-      border-radius: var(--radius-md); background: var(--card-bg); border: 1px solid var(--card-border);
-      box-shadow: var(--card-shadow); -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px);
-      transition: transform 0.35s var(--ease-out), border-color 0.35s;
-    }
-    .chip:hover { transform: translateY(-6px); border-color: var(--card-border-hover); }
-    .chip__ic { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; color: #fff; }
-    .chip__ic svg { width: 27px; height: 27px; }
-    .chip__ic.gh   { background: linear-gradient(135deg, #3A3A3C, #0B0B0D); }
-    .chip__ic.tg   { background: linear-gradient(135deg, #37AEE2, #1E96C8); }
-    .chip__ic.mail { background: var(--accent-grad); }
-    .chip__meta small { display: block; color: var(--text-3); font-size: 12px; font-weight: 600;
-                        text-transform: uppercase; letter-spacing: 1px; }
-    .chip__meta span { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; }
+    .contacts { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; max-width:900px; margin:0 auto; }
+    .chip { display:flex; align-items:center; gap:14px; padding:18px 22px; border-radius:var(--radius-md);
+      background:var(--card-bg); border:1px solid var(--card-border); box-shadow:var(--card-shadow);
+      -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
+      transition:transform .35s var(--ease-out),border-color .35s; min-width:0; }
+    .chip:hover { transform:translateY(-6px); border-color:var(--card-border-hover); }
+    .chip__ic { width:50px; height:50px; border-radius:14px; display:grid; place-items:center; flex-shrink:0; color:#fff; }
+    .chip__ic svg { width:27px; height:27px; }
+    .chip__ic.gh { background:linear-gradient(135deg,#3A3A3C,#0B0B0D); }
+    .chip__ic.tg { background:linear-gradient(135deg,#37AEE2,#1E96C8); }
+    .chip__ic.mail { background:var(--accent-grad); }
+    .chip__meta { min-width:0; }
+    .chip__meta small { display:block; color:var(--text-3); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+    .chip__meta span { display:block; font-weight:700; font-size:15px; letter-spacing:-0.2px;
+      overflow-wrap:anywhere; word-break:break-word; line-height:1.35; }
 
     /* ============================================================
        9. ФОРМА
        ============================================================ */
-    .form-wrap { max-width: 680px; margin: 0 auto; background: var(--card-bg);
-                 border: 1px solid var(--card-border); border-radius: var(--radius-xl);
-                 box-shadow: var(--card-shadow); -webkit-backdrop-filter: saturate(160%) blur(26px);
-                 backdrop-filter: saturate(160%) blur(26px); padding: 38px; }
-    .field { margin-bottom: 20px; }
-    .field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 9px;
-                   color: var(--text-2); letter-spacing: 0.2px; }
-    .field label .req { color: #FF453A; }
-    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .input, .select, .textarea {
-      width: 100%; font-family: inherit; font-size: 16px; color: var(--text);
-      background: var(--control-bg); border: 1px solid var(--control-border);
-      border-radius: var(--radius-sm); padding: 14px 16px;
-      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
-      -webkit-appearance: none; appearance: none;
-    }
-    .input::placeholder, .textarea::placeholder { color: var(--text-3); }
-    .input:focus, .select:focus, .textarea:focus {
-      outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft);
-    }
-    .textarea { resize: vertical; min-height: 130px; }
-    .sel-wrap { position: relative; }
-    .sel-wrap::after { content: ""; position: absolute; right: 17px; top: 50%; width: 9px; height: 9px;
-      border-right: 2px solid var(--text-3); border-bottom: 2px solid var(--text-3);
-      transform: translateY(-70%) rotate(45deg); pointer-events: none; }
-    .select { padding-right: 42px; }
-    .bud-wrap { position: relative; }
-    .bud-wrap .cur { position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-                     color: var(--text-3); font-weight: 700; font-size: 15px; pointer-events: none; }
-    .bud-wrap .input { padding-right: 56px; }
-
-    .err { display: none; color: #FF453A; font-size: 13px; margin-top: 7px; font-weight: 600; }
-    .field.invalid .err { display: block; }
-    .field.invalid .input, .field.invalid .select, .field.invalid .textarea {
-      border-color: #FF453A; box-shadow: 0 0 0 4px rgba(255,69,58,0.16); }
-
-    .submit { width: 100%; margin-top: 6px; }
-
-    .success {
-      display: none; align-items: center; gap: 13px; margin-bottom: 22px;
-      padding: 17px 19px; border-radius: var(--radius-md);
-      background: rgba(48,209,88,0.14); border: 1px solid rgba(48,209,88,0.4);
-      color: #30D158; font-weight: 600; animation: pop 0.5s var(--ease-spring) both;
-    }
-    [data-theme="light"] .success { color: #248A3D; }
-    .success.show { display: flex; }
-    .success svg { width: 24px; height: 24px; flex-shrink: 0; }
-    @keyframes pop { from{opacity:0; transform:scale(0.94)} to{opacity:1; transform:scale(1)} }
+    .form-wrap { max-width:680px; margin:0 auto; background:var(--card-bg); border:1px solid var(--card-border);
+      border-radius:var(--radius-xl); box-shadow:var(--card-shadow);
+      -webkit-backdrop-filter:saturate(160%) blur(26px); backdrop-filter:saturate(160%) blur(26px); padding:38px; }
+    .field { margin-bottom:20px; }
+    .field label { display:block; font-size:13px; font-weight:700; margin-bottom:9px; color:var(--text-2); letter-spacing:.2px; }
+    .field label .req { color:#FF453A; }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .input,.select,.textarea { width:100%; font-family:inherit; font-size:16px; color:var(--text);
+      background:var(--control-bg); border:1px solid var(--control-border); border-radius:var(--radius-sm);
+      padding:14px 16px; transition:border-color .25s,box-shadow .25s,background .25s; -webkit-appearance:none; appearance:none; }
+    .input::placeholder,.textarea::placeholder { color:var(--text-3); }
+    .input:focus,.select:focus,.textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-soft); }
+    .textarea { resize:vertical; min-height:130px; }
+    .sel-wrap { position:relative; }
+    .sel-wrap::after { content:""; position:absolute; right:17px; top:50%; width:9px; height:9px;
+      border-right:2px solid var(--text-3); border-bottom:2px solid var(--text-3); transform:translateY(-70%) rotate(45deg); pointer-events:none; }
+    .select { padding-right:42px; }
+    .bud-wrap { position:relative; }
+    .bud-wrap .cur { position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--text-3); font-weight:700; font-size:15px; pointer-events:none; }
+    .bud-wrap .input { padding-right:56px; }
+    .err { display:none; color:#FF453A; font-size:13px; margin-top:7px; font-weight:600; }
+    .field.invalid .err { display:block; }
+    .field.invalid .input,.field.invalid .select,.field.invalid .textarea { border-color:#FF453A; box-shadow:0 0 0 4px rgba(255,69,58,0.16); }
+    .submit { width:100%; margin-top:6px; }
+    .success { display:none; align-items:center; gap:13px; margin-bottom:22px; padding:17px 19px; border-radius:var(--radius-md);
+      background:rgba(48,209,88,0.14); border:1px solid rgba(48,209,88,0.4); color:#30D158; font-weight:600; animation:pop .5s var(--ease-spring) both; }
+    [data-theme="light"] .success { color:#248A3D; }
+    .success.show { display:flex; }
+    .success svg { width:24px; height:24px; flex-shrink:0; }
+    @keyframes pop { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:scale(1)} }
 
     /* ============================================================
        10. ФУТЕР
        ============================================================ */
-    footer { text-align: center; padding: 60px 22px 70px; border-top: 1px solid var(--hairline);
-             color: var(--text-2); font-size: 15px; }
-    .footer-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; font-weight: 800;
-                    font-size: 20px; letter-spacing: -0.5px; }
-    .footer-brand svg { width: 30px; height: 30px; }
-    .footer-links { display: flex; gap: 22px; justify-content: center; margin: 16px 0; }
-    .footer-links a { color: var(--text-2); font-weight: 600; transition: color 0.25s; }
-    .footer-links a:hover { color: var(--accent); }
-    footer .fine { font-size: 13px; color: var(--text-3); margin-top: 8px; }
-    footer .fine a { color: var(--accent); font-weight: 600; }
+    footer { text-align:center; padding:60px 22px 70px; border-top:1px solid var(--hairline); color:var(--text-2); font-size:15px; }
+    .footer-brand { display:inline-flex; align-items:center; gap:10px; margin-bottom:18px; font-weight:800; font-size:20px; letter-spacing:-0.5px; }
+    .footer-brand svg { width:30px; height:30px; }
+    .footer-links { display:flex; gap:22px; justify-content:center; margin:16px 0; flex-wrap:wrap; }
+    .footer-links a { color:var(--text-2); font-weight:600; transition:color .25s; }
+    .footer-links a:hover { color:var(--accent); }
+    footer .fine { font-size:13px; color:var(--text-3); margin-top:8px; }
+    footer .fine a { color:var(--accent); font-weight:600; }
 
     /* ============================================================
        11. REVEAL + REDUCED MOTION
        ============================================================ */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
-    .reveal.vis { opacity: 1; transform: none; }
-    .stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
-    .stagger.vis > * { opacity: 1; transform: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
-      .reveal, .stagger > * { opacity: 1 !important; transform: none !important; }
-      .bg-aurora span { animation: none !important; }
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease-out),transform .8s var(--ease-out); }
+    .reveal.vis { opacity:1; transform:none; }
+    .stagger > * { opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease-out),transform .7s var(--ease-out); }
+    .stagger.vis > * { opacity:1; transform:none; }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+      .reveal,.stagger > * { opacity:1 !important; transform:none !important; }
+      .bg-aurora span { animation:none !important; }
     }
 
     /* ============================================================
-       12. АДАПТИВ
+       12. АДАПТИВ (усі пристрої)
        ============================================================ */
-    @media (max-width: 600px) {
-      section { padding: 68px 0; }
-      .row2 { grid-template-columns: 1fr; gap: 0; }
-      .form-wrap { padding: 26px 20px; }
-      .stats { gap: 26px; }
-      .hero { padding-top: 56px; }
-      .hero__wordmark .l2 { letter-spacing: 8px; }
+    @media (max-width:900px) { .grid { grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); } }
+    @media (max-width:600px) {
+      section { padding:64px 0; }
+      .shell { padding:0 18px; }
+      .row2 { grid-template-columns:1fr; gap:0; }
+      .form-wrap { padding:26px 20px; }
+      .stats { gap:24px; }
+      .hero { padding-top:52px; }
+      .hero__wordmark .l2 { letter-spacing:8px; }
+      .grid { grid-template-columns:1fr; }
+      .brand__sub { display:none; }
+    }
+    @media (max-width:380px) {
+      .hero__cta .btn { width:100%; }
+      .pill-btn span.lng-label { display:none; }
+      .pill-btn { padding:0 12px; }
     }
   </style>
 </head>
 
 <body id="top">
-  <!-- Фонові шари -->
-  <div class="bg-aurora" aria-hidden="true">
-    <span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span>
-  </div>
+  <div class="bg-aurora" aria-hidden="true"><span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span></div>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-grain" aria-hidden="true"></div>
 
-  <!-- SVG-визначення логотипу (переюзаємо через <use>) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <linearGradient id="spx-grad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#64D2FF"/>
-        <stop offset="0.5" stop-color="#0A84FF"/>
-        <stop offset="1" stop-color="#5E5CE6"/>
-      </linearGradient>
-      <linearGradient id="spx-gloss" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="rgba(255,255,255,0.55)"/>
-        <stop offset="0.55" stop-color="rgba(255,255,255,0)"/>
-      </linearGradient>
-      <!-- Емблема Spaxer: плитка + монограма «S» зі стрічки + іскра «studio» -->
-      <g id="spx-emblem">
-        <rect x="4" y="4" width="112" height="112" rx="30" fill="url(#spx-grad)"/>
-        <rect x="4" y="4" width="112" height="60" rx="30" fill="url(#spx-gloss)"/>
-        <!-- Літера S зі скруглених сегментів -->
-        <path d="M78 42
-                 C78 33 68 30 60 30
-                 C50 30 42 35 42 45
-                 C42 55 54 57 62 60
-                 C72 63 78 66 78 76
-                 C78 86 68 90 60 90
-                 C50 90 40 86 40 78"
-              fill="none" stroke="#fff" stroke-width="9"
-              stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Іскра (studio spark) -->
-        <path d="M92 26 L95 34 L103 37 L95 40 L92 48 L89 40 L81 37 L89 34 Z" fill="#fff"/>
-      </g>
-    </defs>
-  </svg>
+  <!-- SVG-логотип (переюзаємо) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="spx-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#64D2FF"/><stop offset=".5" stop-color="#0A84FF"/><stop offset="1" stop-color="#5E5CE6"/></linearGradient>
+    <linearGradient id="spx-gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,255,255,0.55)"/><stop offset=".55" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <g id="spx-emblem">
+      <rect x="4" y="4" width="112" height="112" rx="30" fill="url(#spx-grad)"/>
+      <rect x="4" y="4" width="112" height="60" rx="30" fill="url(#spx-gloss)"/>
+      <path d="M78 42 C78 33 68 30 60 30 C50 30 42 35 42 45 C42 55 54 57 62 60 C72 63 78 66 78 76 C78 86 68 90 60 90 C50 90 40 86 40 78"
+            fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M92 26 L95 34 L103 37 L95 40 L92 48 L89 40 L81 37 L89 34 Z" fill="#fff"/>
+    </g>
+  </defs></svg>
 
-  <!-- ============================================================
-       НАВБАР
-       ============================================================ -->
+  <!-- НАВБАР -->
   <header class="nav">
     <div class="shell nav__in">
-      <a href="#top" class="brand" aria-label="Spaxer Studio — на початок">
+      <a href="#top" class="brand" aria-label="Spaxer Studio">
         <span class="brand__mark"><svg viewBox="0 0 120 120"><use href="#spx-emblem"/></svg></span>
-        <span class="brand__text">
-          <span class="brand__name">Spaxer</span>
-          <span class="brand__sub">Studio</span>
-        </span>
+        <span class="brand__text"><span class="brand__name">Spaxer</span><span class="brand__sub">Studio</span></span>
       </a>
-
       <div class="nav__right">
-        <nav class="nav__links" aria-label="Головна навігація">
-          <a href="#work">Роботи</a>
-          <a href="#contacts">Контакти</a>
-          <a href="#write">Написати</a>
+        <nav class="nav__links" aria-label="nav">
+          <a href="#work" data-i18n="nav_work">Роботи</a>
+          <a href="#contacts" data-i18n="nav_contacts">Контакти</a>
+          <a href="#write" data-i18n="nav_write">Написати</a>
         </nav>
+        <button class="pill-btn" id="langToggle" type="button" aria-label="Switch language">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18" stroke="currentColor" stroke-width="1.8"/></svg>
+          <span class="lng-label" id="langLabel">EN</span>
+        </button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Перемкнути тему" aria-pressed="true">
-          <svg class="i-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.2" fill="currentColor"/>
-            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/>
-              <line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/>
-              <line x1="5.1" y1="5.1" x2="6.9" y2="6.9"/><line x1="17.1" y1="17.1" x2="18.9" y2="18.9"/>
-              <line x1="5.1" y1="18.9" x2="6.9" y2="17.1"/><line x1="17.1" y1="6.9" x2="18.9" y2="5.1"/>
-            </g>
-          </svg>
-          <svg class="i-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z" fill="currentColor"/>
-          </svg>
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/><line x1="5.1" y1="5.1" x2="6.9" y2="6.9"/><line x1="17.1" y1="17.1" x2="18.9" y2="18.9"/><line x1="5.1" y1="18.9" x2="6.9" y2="17.1"/><line x1="17.1" y1="6.9" x2="18.9" y2="5.1"/></g></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
         </button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- ============================================================
-         HERO
-         ============================================================ -->
+    <!-- HERO -->
     <section class="hero shell reveal" aria-labelledby="wm">
-      <div class="hero__emblem"><svg viewBox="0 0 120 120" role="img" aria-label="Логотип Spaxer Studio"><use href="#spx-emblem"/></svg></div>
-
-      <h1 class="hero__wordmark" id="wm">
-        <span class="l1 grad-text">Spaxer</span>
-        <span class="l2">Studio</span>
-      </h1>
-
-      <p class="hero__tagline">Дизайн та розробка сучасних сайтів і веб-додатків у стилі <strong>iOS</strong>.</p>
-
-      <div class="hero__pill"><span class="dot" aria-hidden="true"></span> Відкритий до нових проектів</div>
-
+      <div class="hero__emblem"><svg viewBox="0 0 120 120" role="img" aria-label="Spaxer Studio"><use href="#spx-emblem"/></svg></div>
+      <h1 class="hero__wordmark" id="wm"><span class="l1 grad-text">Spaxer</span><span class="l2">Studio</span></h1>
+      <p class="hero__tagline" data-i18n="hero_tagline">Дизайн та розробка сучасних сайтів і веб-додатків у стилі iOS.</p>
+      <div class="hero__pill"><span class="dot" aria-hidden="true"></span> <span data-i18n="hero_pill">Відкритий до нових проектів</span></div>
       <div class="hero__cta">
-        <a href="#work" class="btn btn-primary magnetic">Переглянути роботи</a>
-        <a href="#write" class="btn btn-ghost magnetic">Обговорити проект</a>
+        <a href="#work" class="btn btn-primary magnetic" data-i18n="cta_work">Переглянути роботи</a>
+        <a href="#write" class="btn btn-ghost magnetic" data-i18n="cta_talk">Обговорити проект</a>
       </div>
-
       <div class="stats">
-        <div class="stat"><b class="grad-text">4+</b><span>Проектів</span></div>
-        <div class="stat"><b class="grad-text">100%</b><span>Адаптивність</span></div>
-        <div class="stat"><b class="grad-text">∞</b><span>Уваги до деталей</span></div>
+        <div class="stat"><b class="grad-text">4+</b><span data-i18n="stat_projects">Проектів</span></div>
+        <div class="stat"><b class="grad-text">100%</b><span data-i18n="stat_responsive">Адаптивність</span></div>
+        <div class="stat"><b class="grad-text">∞</b><span data-i18n="stat_details">Уваги до деталей</span></div>
       </div>
     </section>
 
-    <!-- ============================================================
-         ПОРТФОЛІО
-         ============================================================ -->
+    <!-- ПОРТФОЛІО -->
     <section id="work" aria-labelledby="workT">
       <div class="shell">
         <div class="head reveal">
           <span class="eyebrow">Portfolio</span>
-          <h2 id="workT">Обрані роботи</h2>
-          <p>Проекти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.</p>
+          <h2 id="workT" data-i18n="work_h2">Обрані роботи</h2>
+          <p data-i18n="work_p">Проекти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.</p>
         </div>
-
         <div class="grid stagger">
           <!-- 1 -->
           <article class="card">
-            <div class="card__preview g1" aria-hidden="true">
+            <a class="card__preview" href="https://red-berry-site.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Red Berry Site">
               <div class="card__chrome"><i></i><i></i><i></i></div>
-              <span class="card__mark">RB</span><span class="card__no">01</span>
-            </div>
+              <div class="card__fallback g1"><span>RB</span></div>
+              <img class="card__shot" loading="lazy" alt="Red Berry Site — прев'ю"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fred-berry-site.vercel.app%2F?w=1280&h=800"/>
+              <span class="card__no">01</span>
+            </a>
             <div class="card__body">
               <h3>Red Berry Site</h3>
-              <span class="card__tag">HR-агенція</span>
-              <p>Сайт кадрової агенції з добіркою вакансій, послугами для роботодавців і стильним адаптивним інтерфейсом.</p>
+              <span class="card__tag" data-i18n="p1_tag">HR-агенція</span>
+              <p data-i18n="p1_desc">Сайт кадрової агенції з добіркою вакансій, послугами для роботодавців і стильним адаптивним інтерфейсом.</p>
               <a class="card__link" href="https://red-berry-site.vercel.app/" target="_blank" rel="noopener noreferrer">
-                Переглянути <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span data-i18n="card_view">Переглянути</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
           </article>
           <!-- 2 -->
           <article class="card">
-            <div class="card__preview g2" aria-hidden="true">
+            <a class="card__preview" href="https://elegant-travel.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Elegant Travel">
               <div class="card__chrome"><i></i><i></i><i></i></div>
-              <span class="card__mark">ET</span><span class="card__no">02</span>
-            </div>
+              <div class="card__fallback g2"><span>ET</span></div>
+              <img class="card__shot" loading="lazy" alt="Elegant Travel — прев'ю"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Felegant-travel.vercel.app%2F?w=1280&h=800"/>
+              <span class="card__no">02</span>
+            </a>
             <div class="card__body">
               <h3>Elegant Travel</h3>
-              <span class="card__tag">Бізнес-тревел</span>
-              <p>Преміальна платформа для ділових подорожей: підбір турів, готелів та квитків з елегантним дизайном.</p>
+              <span class="card__tag" data-i18n="p2_tag">Бізнес-тревел</span>
+              <p data-i18n="p2_desc">Преміальна платформа для ділових подорожей: підбір турів, готелів та квитків з елегантним дизайном.</p>
               <a class="card__link" href="https://elegant-travel.vercel.app/" target="_blank" rel="noopener noreferrer">
-                Переглянути <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span data-i18n="card_view">Переглянути</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
           </article>
           <!-- 3 -->
           <article class="card">
-            <div class="card__preview g3" aria-hidden="true">
+            <a class="card__preview" href="https://psychologist-bereziuk.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Psychologist Bereziuk">
               <div class="card__chrome"><i></i><i></i><i></i></div>
-              <span class="card__mark">PB</span><span class="card__no">03</span>
-            </div>
+              <div class="card__fallback g3"><span>PB</span></div>
+              <img class="card__shot" loading="lazy" alt="Psychologist Bereziuk — прев'ю"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpsychologist-bereziuk.vercel.app%2F?w=1280&h=800"/>
+              <span class="card__no">03</span>
+            </a>
             <div class="card__body">
               <h3>Psychologist Bereziuk</h3>
-              <span class="card__tag">Особистий бренд</span>
-              <p>Затишний сайт-візитка практикуючого психолога: напрямки терапії та зручна форма запису на консультацію.</p>
+              <span class="card__tag" data-i18n="p3_tag">Особистий бренд</span>
+              <p data-i18n="p3_desc">Затишний сайт-візитка практикуючого психолога: напрямки терапії та зручна форма запису на консультацію.</p>
               <a class="card__link" href="https://psychologist-bereziuk.vercel.app/" target="_blank" rel="noopener noreferrer">
-                Переглянути <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span data-i18n="card_view">Переглянути</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
           </article>
           <!-- 4 -->
           <article class="card">
-            <div class="card__preview g4" aria-hidden="true">
+            <a class="card__preview" href="https://maltipoo-land.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Maltipoo Land">
               <div class="card__chrome"><i></i><i></i><i></i></div>
-              <span class="card__mark">ML</span><span class="card__no">04</span>
-            </div>
+              <div class="card__fallback g4"><span>ML</span></div>
+              <img class="card__shot" loading="lazy" alt="Maltipoo Land — прев'ю"
+                   src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fmaltipoo-land.vercel.app%2F?w=1280&h=800"/>
+              <span class="card__no">04</span>
+            </a>
             <div class="card__body">
               <h3>Maltipoo Land</h3>
-              <span class="card__tag">Розплідник</span>
-              <p>Яскравий сайт розплідника мальтіпу: галерея цуценят, інформація про породу та форма бронювання.</p>
+              <span class="card__tag" data-i18n="p4_tag">Розплідник</span>
+              <p data-i18n="p4_desc">Яскравий сайт розплідника мальтіпу: галерея цуценят, інформація про породу та форма бронювання.</p>
               <a class="card__link" href="https://maltipoo-land.vercel.app/" target="_blank" rel="noopener noreferrer">
-                Переглянути <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span data-i18n="card_view">Переглянути</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
           </article>
@@ -641,15 +471,13 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         КОНТАКТИ
-         ============================================================ -->
+    <!-- КОНТАКТИ -->
     <section id="contacts" aria-labelledby="cT">
       <div class="shell">
         <div class="head reveal">
           <span class="eyebrow">Contacts</span>
-          <h2 id="cT">Будьмо на зв'язку</h2>
-          <p>Знайдіть мене в мережі або напишіть напряму.</p>
+          <h2 id="cT" data-i18n="contacts_h2">Будьмо на зв'язку</h2>
+          <p data-i18n="contacts_p">Знайдіть мене в мережі або напишіть напряму.</p>
         </div>
         <div class="contacts stagger">
           <a class="chip" href="https://github.com/Spxr3dox" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -668,49 +496,48 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         ФОРМА
-         ============================================================ -->
+    <!-- ФОРМА -->
     <section id="write" aria-labelledby="fT">
       <div class="shell">
         <div class="head reveal">
           <span class="eyebrow">Get in touch</span>
-          <h2 id="fT">Написати мені</h2>
-          <p>Розкажіть про свій проект — і я відповім найближчим часом.</p>
+          <h2 id="fT" data-i18n="form_h2">Написати мені</h2>
+          <p data-i18n="form_p">Розкажіть про свій проект — і я відповім найближчим часом.</p>
         </div>
-
         <div class="form-wrap reveal">
           <div class="success" id="success" role="status" aria-live="polite">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#30D158"/><path d="M7.5 12.5 10.5 15.5 16.5 9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Дякую! Повідомлення надіслано. Я зв'яжуся з вами найближчим часом.</span>
+            <span data-i18n="success_msg">Дякую! Повідомлення надіслано. Я зв'яжуся з вами найближчим часом.</span>
           </div>
-
           <!-- ЗАМІНІТЬ your_id на власний ID Formspree -->
           <form id="form" action="https://formspree.io/f/your_id" method="POST" novalidate>
             <div class="row2">
               <div class="field" id="f-name">
-                <label for="name">Ім'я <span class="req">*</span></label>
-                <input class="input" type="text" id="name" name="name" placeholder="Ваше ім'я" required autocomplete="name"/>
-                <span class="err">Будь ласка, вкажіть ваше ім'я.</span>
+                <label for="name"><span data-i18n="f_name">Ім'я</span> <span class="req">*</span></label>
+                <input class="input" type="text" id="name" name="name" data-i18n-ph="ph_name" placeholder="Ваше ім'я" required autocomplete="name"/>
+                <span class="err" data-i18n="err_name">Будь ласка, вкажіть ваше ім'я.</span>
               </div>
               <div class="field" id="f-email">
-                <label for="email">Email <span class="req">*</span></label>
+                <label for="email"><span data-i18n="f_email">Email</span> <span class="req">*</span></label>
                 <input class="input" type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email"/>
-                <span class="err">Введіть коректну email-адресу.</span>
+                <span class="err" data-i18n="err_email">Введіть коректну email-адресу.</span>
               </div>
             </div>
             <div class="row2">
               <div class="field">
-                <label for="ptype">Тип проекту</label>
+                <label for="ptype" data-i18n="f_ptype">Тип проекту</label>
                 <div class="sel-wrap">
                   <select class="select" id="ptype" name="projectType">
-                    <option>Сайт-візитка</option><option>Лендінг</option>
-                    <option>Інтернет-магазин</option><option>Веб-додаток</option><option>Інше</option>
+                    <option data-i18n="opt_visit">Сайт-візитка</option>
+                    <option data-i18n="opt_landing">Лендінг</option>
+                    <option data-i18n="opt_shop">Інтернет-магазин</option>
+                    <option data-i18n="opt_app">Веб-додаток</option>
+                    <option data-i18n="opt_other">Інше</option>
                   </select>
                 </div>
               </div>
               <div class="field">
-                <label for="budget">Бюджет</label>
+                <label for="budget" data-i18n="f_budget">Бюджет</label>
                 <div class="bud-wrap">
                   <input class="input" type="number" id="budget" name="budget" placeholder="1000" min="0" step="50" inputmode="numeric"/>
                   <span class="cur">USD</span>
@@ -718,20 +545,18 @@
               </div>
             </div>
             <div class="field" id="f-msg">
-              <label for="msg">Опис проекту <span class="req">*</span></label>
-              <textarea class="textarea" id="msg" name="message" placeholder="Опишіть завдання, терміни та побажання…" required></textarea>
-              <span class="err">Додайте короткий опис проекту.</span>
+              <label for="msg"><span data-i18n="f_msg">Опис проекту</span> <span class="req">*</span></label>
+              <textarea class="textarea" id="msg" name="message" data-i18n-ph="ph_msg" placeholder="Опишіть завдання, терміни та побажання…" required></textarea>
+              <span class="err" data-i18n="err_msg">Додайте короткий опис проекту.</span>
             </div>
-            <button class="btn btn-primary submit magnetic" type="submit">Надіслати повідомлення</button>
+            <button class="btn btn-primary submit magnetic" type="submit" data-i18n="btn_submit">Надіслати повідомлення</button>
           </form>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ============================================================
-       ФУТЕР
-       ============================================================ -->
+  <!-- ФУТЕР -->
   <footer>
     <div class="shell">
       <div class="footer-brand"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#spx-emblem"/></svg> Spaxer Studio</div>
@@ -740,20 +565,102 @@
         <a href="https://t.me/TheGarvey" target="_blank" rel="noopener noreferrer">Telegram</a>
         <a href="mailto:genius.space.bel@gmail.com">Email</a>
       </div>
-      <p>© 2026 Spaxer Studio. Усі права захищені.</p>
-      <p class="fine">Створено з ❤️ та увагою до деталей · вихідний код на <a href="https://github.com/Spxr3dox/MyOwn" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      <p data-i18n="foot_rights">© 2026 Spaxer Studio. Усі права захищені.</p>
     </div>
   </footer>
 
-  <!-- ============================================================
-       СКРИПТИ
-       ============================================================ -->
   <script>
     (function () {
       "use strict";
       const root = document.documentElement;
 
-      /* ---- Тема ---- */
+      /* ============================================================
+         I18N — словник UA / EN
+         ============================================================ */
+      const I18N = {
+        uk: {
+          nav_work:"Роботи", nav_contacts:"Контакти", nav_write:"Написати",
+          hero_tagline:"Дизайн та розробка сучасних сайтів і веб-додатків у стилі iOS.",
+          hero_pill:"Відкритий до нових проектів",
+          cta_work:"Переглянути роботи", cta_talk:"Обговорити проект",
+          stat_projects:"Проектів", stat_responsive:"Адаптивність", stat_details:"Уваги до деталей",
+          work_h2:"Обрані роботи", work_p:"Проекти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.",
+          p1_tag:"HR-агенція", p1_desc:"Сайт кадрової агенції з добіркою вакансій, послугами для роботодавців і стильним адаптивним інтерфейсом.",
+          p2_tag:"Бізнес-тревел", p2_desc:"Преміальна платформа для ділових подорожей: підбір турів, готелів та квитків з елегантним дизайном.",
+          p3_tag:"Особистий бренд", p3_desc:"Затишний сайт-візитка практикуючого психолога: напрямки терапії та зручна форма запису на консультацію.",
+          p4_tag:"Розплідник", p4_desc:"Яскравий сайт розплідника мальтіпу: галерея цуценят, інформація про породу та форма бронювання.",
+          card_view:"Переглянути",
+          contacts_h2:"Будьмо на зв'язку", contacts_p:"Знайдіть мене в мережі або напишіть напряму.",
+          form_h2:"Написати мені", form_p:"Розкажіть про свій проект — і я відповім найближчим часом.",
+          f_name:"Ім'я", f_email:"Email", f_ptype:"Тип проекту", f_budget:"Бюджет", f_msg:"Опис проекту",
+          ph_name:"Ваше ім'я", ph_msg:"Опишіть завдання, терміни та побажання…",
+          opt_visit:"Сайт-візитка", opt_landing:"Лендінг", opt_shop:"Інтернет-магазин", opt_app:"Веб-додаток", opt_other:"Інше",
+          btn_submit:"Надіслати повідомлення", btn_sending:"Надсилання…",
+          success_msg:"Дякую! Повідомлення надіслано. Я зв'яжуся з вами найближчим часом.",
+          err_name:"Будь ласка, вкажіть ваше ім'я.", err_email:"Введіть коректну email-адресу.", err_msg:"Додайте короткий опис проекту.",
+          foot_rights:"© 2026 Spaxer Studio. Усі права захищені.",
+          foot_fine:"Створено з ❤️ та увагою до деталей · вихідний код на",
+          alert_fail:"Не вдалося надіслати. Спробуйте пізніше або напишіть на email.",
+          alert_err:"Помилка надсилання. Переконайтеся, що форму Formspree налаштовано (замініть your_id).",
+          _label:"EN"
+        },
+        en: {
+          nav_work:"Work", nav_contacts:"Contacts", nav_write:"Contact",
+          hero_tagline:"Design & development of modern websites and web apps, crafted in iOS style.",
+          hero_pill:"Available for new projects",
+          cta_work:"View work", cta_talk:"Start a project",
+          stat_projects:"Projects", stat_responsive:"Responsive", stat_details:"Attention to detail",
+          work_h2:"Selected work", work_p:"Projects built with care for design, speed and every little detail.",
+          p1_tag:"HR agency", p1_desc:"Website for a recruitment agency with job listings, services for employers and a sleek responsive interface.",
+          p2_tag:"Business travel", p2_desc:"A premium platform for business trips: tours, hotels and tickets wrapped in an elegant design.",
+          p3_tag:"Personal brand", p3_desc:"A warm one-page site for a practicing psychologist: therapy areas and an easy booking form.",
+          p4_tag:"Cattery", p4_desc:"A vivid website for a Maltipoo cattery: a puppy gallery, breed info and a booking form.",
+          card_view:"View",
+          contacts_h2:"Let's connect", contacts_p:"Find me online or reach out directly.",
+          form_h2:"Get in touch", form_p:"Tell me about your project — I'll reply shortly.",
+          f_name:"Name", f_email:"Email", f_ptype:"Project type", f_budget:"Budget", f_msg:"Project details",
+          ph_name:"Your name", ph_msg:"Describe the task, timeline and expectations…",
+          opt_visit:"Business card site", opt_landing:"Landing page", opt_shop:"Online store", opt_app:"Web app", opt_other:"Other",
+          btn_submit:"Send message", btn_sending:"Sending…",
+          success_msg:"Thank you! Your message has been sent. I'll get back to you shortly.",
+          err_name:"Please enter your name.", err_email:"Enter a valid email address.", err_msg:"Please add a short project description.",
+          foot_rights:"© 2026 Spaxer Studio. All rights reserved.",
+          foot_fine:"Made with ❤️ and attention to detail · source on",
+          alert_fail:"Could not send. Please try later or email me.",
+          alert_err:"Sending error. Make sure the Formspree form is configured (replace your_id).",
+          _label:"UA"
+        }
+      };
+
+      let lang = (function () {
+        const s = localStorage.getItem("spaxer-lang");
+        if (s === "uk" || s === "en") return s;
+        return (navigator.language || "uk").toLowerCase().startsWith("uk") ? "uk" : "en";
+      })();
+
+      const t = function (k) { return (I18N[lang] && I18N[lang][k]) || k; };
+
+      function applyLang(l) {
+        lang = l;
+        const dict = I18N[l];
+        root.setAttribute("lang", l);
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          const k = el.getAttribute("data-i18n"); if (dict[k] != null) el.textContent = dict[k];
+        });
+        document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
+          const k = el.getAttribute("data-i18n-ph"); if (dict[k] != null) el.setAttribute("placeholder", dict[k]);
+        });
+        document.getElementById("langLabel").textContent = dict._label;
+        localStorage.setItem("spaxer-lang", l);
+      }
+      applyLang(lang);
+      document.getElementById("langToggle").addEventListener("click", function () {
+        applyLang(lang === "uk" ? "en" : "uk");
+      });
+
+      /* ============================================================
+         ТЕМА
+         ============================================================ */
       const toggle = document.getElementById("themeToggle");
       const KEY = "spaxer-theme";
       const initial = (function () {
@@ -761,42 +668,58 @@
         if (s === "light" || s === "dark") return s;
         return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       })();
-      function apply(t) {
-        root.setAttribute("data-theme", t);
-        toggle.setAttribute("aria-pressed", t === "dark" ? "true" : "false");
-        toggle.setAttribute("aria-label", t === "dark" ? "Увімкнути світлу тему" : "Увімкнути темну тему");
+      function applyTheme(th) {
+        root.setAttribute("data-theme", th);
+        toggle.setAttribute("aria-pressed", th === "dark" ? "true" : "false");
       }
-      apply(initial);
+      applyTheme(initial);
       toggle.addEventListener("click", function () {
         const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-        apply(next); localStorage.setItem(KEY, next);
+        applyTheme(next); localStorage.setItem(KEY, next);
       });
       window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", function (e) {
-        if (!localStorage.getItem(KEY)) apply(e.matches ? "light" : "dark");
+        if (!localStorage.getItem(KEY)) applyTheme(e.matches ? "light" : "dark");
       });
 
-      /* ---- Reveal (з підтримкою stagger) ---- */
+      /* ============================================================
+         СКРІНШОТИ проектів (плавна поява + фолбек)
+         mShots іноді віддає зображення не з першого разу — робимо
+         кілька повторних спроб, поки не завантажиться.
+         ============================================================ */
+      document.querySelectorAll(".card__shot").forEach(function (img) {
+        const base = img.getAttribute("src");
+        let tries = 0;
+        img.addEventListener("load", function () {
+          // mShots-заглушка «loading» дуже мала за розміром — вважаємо валідним лише повний кадр
+          if (img.naturalWidth > 320) { img.classList.add("loaded"); }
+          else if (tries < 6) { tries++; setTimeout(function () { img.src = base + "&r=" + tries; }, 1600); }
+        });
+        img.addEventListener("error", function () {
+          if (tries < 4) { tries++; setTimeout(function () { img.src = base + "&r=" + tries; }, 1600); }
+        });
+      });
+
+      /* ============================================================
+         REVEAL + STAGGER
+         ============================================================ */
       const items = document.querySelectorAll(".reveal, .stagger");
       if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver(function (entries) {
           entries.forEach(function (en) {
             if (!en.isIntersecting) return;
-            const el = en.target;
-            el.classList.add("vis");
+            const el = en.target; el.classList.add("vis");
             if (el.classList.contains("stagger")) {
-              Array.prototype.forEach.call(el.children, function (child, i) {
-                child.style.transitionDelay = (i * 90) + "ms";
-              });
+              Array.prototype.forEach.call(el.children, function (c, i) { c.style.transitionDelay = (i * 90) + "ms"; });
             }
             io.unobserve(el);
           });
         }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
         items.forEach(function (el) { io.observe(el); });
-      } else {
-        items.forEach(function (el) { el.classList.add("vis"); });
-      }
+      } else { items.forEach(function (el) { el.classList.add("vis"); }); }
 
-      /* ---- Spotlight на картках (курсор) ---- */
+      /* ============================================================
+         SPOTLIGHT на картках
+         ============================================================ */
       document.querySelectorAll(".card").forEach(function (card) {
         card.addEventListener("pointermove", function (e) {
           const r = card.getBoundingClientRect();
@@ -805,20 +728,22 @@
         });
       });
 
-      /* ---- Магнітні кнопки (лише для миші/тонкого курсору) ---- */
+      /* ============================================================
+         МАГНІТНІ КНОПКИ (лише миша)
+         ============================================================ */
       if (window.matchMedia("(pointer: fine)").matches) {
         document.querySelectorAll(".magnetic").forEach(function (btn) {
           btn.addEventListener("pointermove", function (e) {
             const r = btn.getBoundingClientRect();
-            const x = e.clientX - r.left - r.width / 2;
-            const y = e.clientY - r.top - r.height / 2;
-            btn.style.transform = "translate(" + x * 0.18 + "px," + y * 0.28 + "px)";
+            btn.style.transform = "translate(" + (e.clientX - r.left - r.width/2)*0.18 + "px," + (e.clientY - r.top - r.height/2)*0.28 + "px)";
           });
           btn.addEventListener("pointerleave", function () { btn.style.transform = ""; });
         });
       }
 
-      /* ---- Валідація та надсилання форми ---- */
+      /* ============================================================
+         ВАЛІДАЦІЯ + НАДСИЛАННЯ
+         ============================================================ */
       const form = document.getElementById("form");
       const success = document.getElementById("success");
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -826,29 +751,24 @@
       function validate() {
         let ok = true;
         const n = document.getElementById("name"), e = document.getElementById("email"), m = document.getElementById("msg");
-        const nb = n.value.trim() === "";              mark("f-name", nb);  if (nb) ok = false;
-        const eb = !emailRe.test(e.value.trim());       mark("f-email", eb); if (eb) ok = false;
-        const mb = m.value.trim() === "";               mark("f-msg", mb);   if (mb) ok = false;
+        const nb = n.value.trim() === ""; mark("f-name", nb); if (nb) ok = false;
+        const eb = !emailRe.test(e.value.trim()); mark("f-email", eb); if (eb) ok = false;
+        const mb = m.value.trim() === ""; mark("f-msg", mb); if (mb) ok = false;
         return ok;
       }
       [["name","f-name"],["email","f-email"],["msg","f-msg"]].forEach(function (p) {
-        document.getElementById(p[0]).addEventListener("input", function () {
-          document.getElementById(p[1]).classList.remove("invalid");
-        });
+        document.getElementById(p[0]).addEventListener("input", function () { document.getElementById(p[1]).classList.remove("invalid"); });
       });
       form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        success.classList.remove("show");
+        e.preventDefault(); success.classList.remove("show");
         if (!validate()) { const bad = form.querySelector(".field.invalid .input, .field.invalid .textarea"); if (bad) bad.focus(); return; }
-        const btn = form.querySelector(".submit"); const txt = btn.textContent;
-        btn.disabled = true; btn.textContent = "Надсилання…";
+        const btn = form.querySelector(".submit"); btn.disabled = true; btn.textContent = t("btn_sending");
         try {
-          const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { "Accept": "application/json" } });
-          if (res.ok) { form.reset(); success.classList.add("show"); success.scrollIntoView({ behavior: "smooth", block: "center" }); }
-          else { alert("Не вдалося надіслати. Спробуйте пізніше або напишіть на email."); }
-        } catch (err) {
-          alert("Помилка надсилання. Переконайтеся, що форму Formspree налаштовано (замініть your_id).");
-        } finally { btn.disabled = false; btn.textContent = txt; }
+          const res = await fetch(form.action, { method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } });
+          if (res.ok) { form.reset(); success.classList.add("show"); success.scrollIntoView({ behavior:"smooth", block:"center" }); }
+          else { alert(t("alert_fail")); }
+        } catch (err) { alert(t("alert_err")); }
+        finally { btn.disabled = false; btn.textContent = t("btn_submit"); }
       });
     })();
   </script>
