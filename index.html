@@ -11,7 +11,7 @@
   <!-- ============================================================
        SPAXER STUDIO · single-file landing
        iOS / Apple HIG × «liquid glass».
-       Живі скріншоти проектів, aurora-фон, зерно, spotlight,
+       Живі скріншоти проєктів, aurora-фон, зерно, spotlight,
        магнітні кнопки, reveal-анімації, теми (світла/темна),
        перемикач мови UA ⇄ EN.
        ============================================================ -->
@@ -206,6 +206,7 @@
     .g3 { background:linear-gradient(135deg,#30D158,#30B0C7); }
     .g4 { background:linear-gradient(135deg,#FF9F0A,#FF375F); }
     .g5 { background:linear-gradient(135deg,#32ADE6,#0A84FF); }
+    .g6 { background:linear-gradient(135deg,#5E5CE6,#BF5AF2); }
     /* Браузерна шапка поверх скріна */
     .card__chrome { position:absolute; top:0; left:0; right:0; height:34px; z-index:3;
       display:flex; align-items:center; gap:7px; padding:0 14px;
@@ -375,13 +376,13 @@
       <div class="hero__emblem"><svg viewBox="0 0 120 120" role="img" aria-label="Spaxer Studio"><use href="#spx-emblem"/></svg></div>
       <h1 class="hero__wordmark" id="wm"><span class="l1 grad-text">Spaxer</span><span class="l2">Studio</span></h1>
       <p class="hero__tagline" data-i18n="hero_tagline">Дизайн та розробка сучасних сайтів і веб-додатків у стилі iOS.</p>
-      <div class="hero__pill"><span class="dot" aria-hidden="true"></span> <span data-i18n="hero_pill">Відкритий до нових проектів</span></div>
+      <div class="hero__pill"><span class="dot" aria-hidden="true"></span> <span data-i18n="hero_pill">Відкритий до нових проєктів</span></div>
       <div class="hero__cta">
         <a href="#work" class="btn btn-primary magnetic" data-i18n="cta_work">Переглянути роботи</a>
-        <a href="#write" class="btn btn-ghost magnetic" data-i18n="cta_talk">Обговорити проект</a>
+        <a href="#write" class="btn btn-ghost magnetic" data-i18n="cta_talk">Обговорити проєкт</a>
       </div>
       <div class="stats">
-        <div class="stat"><b class="grad-text">5+</b><span data-i18n="stat_projects">Проектів</span></div>
+        <div class="stat"><b class="grad-text">6+</b><span data-i18n="stat_projects">Проєктів</span></div>
         <div class="stat"><b class="grad-text">100%</b><span data-i18n="stat_responsive">Адаптивність</span></div>
         <div class="stat"><b class="grad-text">∞</b><span data-i18n="stat_details">Уваги до деталей</span></div>
       </div>
@@ -393,7 +394,7 @@
         <div class="head reveal">
           <span class="eyebrow">Portfolio</span>
           <h2 id="workT" data-i18n="work_h2">Обрані роботи</h2>
-          <p data-i18n="work_p">Проекти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.</p>
+          <p data-i18n="work_p">Проєкти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.</p>
         </div>
         <div class="grid stagger">
           <!-- 1 -->
@@ -481,6 +482,23 @@
               </a>
             </div>
           </article>
+          <!-- 6 -->
+          <article class="card">
+            <a class="card__preview" href="https://flatmatch-beta.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="FlatMatch">
+              <div class="card__chrome"><i></i><i></i><i></i></div>
+              <div class="card__fallback g6"><span>FM</span></div>
+              <img class="card__shot" loading="lazy" alt="FlatMatch — прев'ю" src="shots/flatmatch.jpg"/>
+              <span class="card__no">06</span>
+            </a>
+            <div class="card__body">
+              <h3>FlatMatch</h3>
+              <span class="card__tag" data-i18n="p6_tag">Пошук житла</span>
+              <p data-i18n="p6_desc">Сервіс для пошуку співмешканців і житла: підбір за вподобаннями, зручні картки оголошень та фільтри.</p>
+              <a class="card__link" href="https://flatmatch-beta.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <span data-i18n="card_view">Переглянути</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -516,7 +534,7 @@
         <div class="head reveal">
           <span class="eyebrow">Get in touch</span>
           <h2 id="fT" data-i18n="form_h2">Написати мені</h2>
-          <p data-i18n="form_p">Розкажіть про свій проект — і я відповім найближчим часом.</p>
+          <p data-i18n="form_p">Розкажіть про свій проєкт — і я відповім найближчим часом.</p>
         </div>
         <div class="form-wrap reveal">
           <div class="success" id="success" role="status" aria-live="polite">
@@ -539,7 +557,7 @@
             </div>
             <div class="row2">
               <div class="field">
-                <label for="ptype" data-i18n="f_ptype">Тип проекту</label>
+                <label for="ptype" data-i18n="f_ptype">Тип проєкту</label>
                 <div class="sel-wrap">
                   <select class="select" id="ptype" name="projectType">
                     <option data-i18n="opt_visit">Сайт-візитка</option>
@@ -559,9 +577,9 @@
               </div>
             </div>
             <div class="field" id="f-msg">
-              <label for="msg"><span data-i18n="f_msg">Опис проекту</span> <span class="req">*</span></label>
+              <label for="msg"><span data-i18n="f_msg">Опис проєкту</span></label>
               <textarea class="textarea" id="msg" name="message" data-i18n-ph="ph_msg" placeholder="Опишіть завдання, терміни та побажання…" required></textarea>
-              <span class="err" data-i18n="err_msg">Додайте короткий опис проекту.</span>
+              <span class="err" data-i18n="err_msg">Додайте короткий опис проєкту.</span>
             </div>
             <button class="btn btn-primary submit magnetic" type="submit" data-i18n="btn_submit">Надіслати повідомлення</button>
           </form>
@@ -595,24 +613,25 @@
         uk: {
           nav_work:"Роботи", nav_contacts:"Контакти", nav_write:"Написати",
           hero_tagline:"Дизайн та розробка сучасних сайтів і веб-додатків у стилі iOS.",
-          hero_pill:"Відкритий до нових проектів",
-          cta_work:"Переглянути роботи", cta_talk:"Обговорити проект",
-          stat_projects:"Проектів", stat_responsive:"Адаптивність", stat_details:"Уваги до деталей",
-          work_h2:"Обрані роботи", work_p:"Проекти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.",
+          hero_pill:"Відкритий до нових проєктів",
+          cta_work:"Переглянути роботи", cta_talk:"Обговорити проєкт",
+          stat_projects:"Проєктів", stat_responsive:"Адаптивність", stat_details:"Уваги до деталей",
+          work_h2:"Обрані роботи", work_p:"Проєкти, у кожен з яких вкладено дизайн, швидкість і турботу про деталі.",
           p1_tag:"HR-агенція", p1_desc:"Сайт кадрової агенції з добіркою вакансій, послугами для роботодавців і стильним адаптивним інтерфейсом.",
           p2_tag:"Бізнес-тревел", p2_desc:"Преміальна платформа для ділових подорожей: підбір турів, готелів та квитків з елегантним дизайном.",
           p3_tag:"Особистий бренд", p3_desc:"Затишний сайт-візитка практикуючого психолога: напрямки терапії та зручна форма запису на консультацію.",
           p4_tag:"Розплідник", p4_desc:"Яскравий сайт розплідника мальтіпу: галерея цуценят, інформація про породу та форма бронювання.",
           p5_tag:"Маркетплейс", p5_desc:"Маркетплейс медичного одягу в iOS-стилі: каталог товарів, кошик та адмін-панель для керування асортиментом.",
+          p6_tag:"Пошук житла", p6_desc:"Сервіс для пошуку співмешканців і житла: підбір за вподобаннями, зручні картки оголошень та фільтри.",
           card_view:"Переглянути",
           contacts_h2:"Будьмо на зв'язку", contacts_p:"Знайдіть мене в мережі або напишіть напряму.",
-          form_h2:"Написати мені", form_p:"Розкажіть про свій проект — і я відповім найближчим часом.",
-          f_name:"Ім'я", f_email:"Email", f_ptype:"Тип проекту", f_budget:"Бюджет", f_msg:"Опис проекту",
+          form_h2:"Написати мені", form_p:"Розкажіть про свій проєкт — і я відповім найближчим часом.",
+          f_name:"Ім'я", f_email:"Email", f_ptype:"Тип проєкту", f_budget:"Бюджет", f_msg:"Опис проєкту",
           ph_name:"Ваше ім'я", ph_msg:"Опишіть завдання, терміни та побажання…",
           opt_visit:"Сайт-візитка", opt_landing:"Лендінг", opt_shop:"Інтернет-магазин", opt_app:"Веб-додаток", opt_other:"Інше",
           btn_submit:"Надіслати повідомлення", btn_sending:"Надсилання…",
           success_msg:"Дякую! Повідомлення надіслано. Я зв'яжуся з вами найближчим часом.",
-          err_name:"Будь ласка, вкажіть ваше ім'я.", err_email:"Введіть коректну email-адресу.", err_msg:"Додайте короткий опис проекту.",
+          err_name:"Будь ласка, вкажіть ваше ім'я.", err_email:"Введіть коректну email-адресу.", err_msg:"Додайте короткий опис проєкту.",
           foot_rights:"© 2026 Spaxer Studio. Усі права захищені.",
           foot_fine:"Створено з ❤️ та увагою до деталей · вихідний код на",
           alert_fail:"Не вдалося надіслати. Спробуйте пізніше або напишіть на email.",
@@ -631,6 +650,7 @@
           p3_tag:"Personal brand", p3_desc:"A warm one-page site for a practicing psychologist: therapy areas and an easy booking form.",
           p4_tag:"Cattery", p4_desc:"A vivid website for a Maltipoo cattery: a puppy gallery, breed info and a booking form.",
           p5_tag:"Marketplace", p5_desc:"A medical apparel marketplace in iOS style: product catalog, cart and an admin panel to manage the range.",
+          p6_tag:"Housing search", p6_desc:"A service to find flatmates and housing: preference-based matching, handy listing cards and filters.",
           card_view:"View",
           contacts_h2:"Let's connect", contacts_p:"Find me online or reach out directly.",
           form_h2:"Get in touch", form_p:"Tell me about your project — I'll reply shortly.",
@@ -698,7 +718,7 @@
       });
 
       /* ============================================================
-         СКРІНШОТИ проектів (плавна поява + фолбек)
+         СКРІНШОТИ проєктів (плавна поява + фолбек)
          mShots іноді віддає зображення не з першого разу — робимо
          кілька повторних спроб, поки не завантажиться.
          ============================================================ */
